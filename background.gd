@@ -8,6 +8,9 @@ extends Node2D
 const PLAYER_LINE_Y = 400
 const ENEMY_LINE_Y = 100
 
+@export var player_speed := 200  
+@export var enemy_speed := 150 
+
 @onready var score_label = $CanvasLayer2/Score
 var player_score: int = 0
 @export var points_per_win: int = 100 
@@ -30,34 +33,33 @@ func _on_rock_pressed():
 
 func spawn_shape(shape_scene, button_node):
 	var shape = shape_scene.instantiate()
-<<<<<<< HEAD
-=======
 	var button_pos = button_node.get_global_position()
-	shape.position = Vector2(get_viewport_rect().size.x / 2, PLAYER_LINE_Y)  # same Y for horizontal line
+	#shape.position = Vector2(get_viewport_rect().size.x / 2, PLAYER_LINE_Y)  # same Y for horizontal line
+	var start_x = get_viewport_rect().size.x / 2
+	var start_y = get_viewport_rect().size.y - 50  # bottom of screen
+	shape.position = Vector2(start_x, start_y)
 	shape.name = "Player"
->>>>>>> a2c5f335a5d129a9e6eb83ca92bdc2f3bfc49b99
 	add_child(shape)
+	#animate_up(shape)
 	
-	var screen_size = get_viewport_rect().size
-	
-	var start_pos = Vector2(screen_size.x / 2, screen_size.y + 50)
-	
-	shape.global_position = start_pos
-	animate_up(shape)
-	
-func _process(_delta):
+func _process(delta):
 	for player in get_children():
 		if player.name == "Player":
+			player.position.y -= player_speed * delta
 			check_clash(player)
-
+			if player.position.y < -50:  # off top of screen
+				player.queue_free()
+				
+	for enemy in get_children():
+		if enemy.name == "Enemy":
+			enemy.position.y += enemy_speed * delta  # move down
+			if enemy.position.y > get_viewport_rect().size.y + 50:  # off bottom of screen
+				enemy.queue_free()
 
 func animate_up(shape):
 	var tween = create_tween()
-<<<<<<< HEAD
-	tween.tween_property(shape, "position:y", shape.position.y - 500, 0.5)
-=======
 	tween.tween_property(shape, "position:y", shape.position.y - 50, 0.5)
-
+	
 
 func spawn_enemy_top():
 	var rand = randi() % 3
@@ -73,16 +75,18 @@ func spawn_enemy_top():
 
 
 	var center_x = get_viewport_rect().size.x / 2
-	enemy.position = Vector2(center_x, ENEMY_LINE_Y)
+	#enemy.position = Vector2(center_x, ENEMY_LINE_Y)
+	enemy.position = Vector2(center_x, -50)
 	
 	add_child(enemy)
 	animate_enemy_down(enemy)
 
 
 func animate_enemy_down(enemy):
+	var bottom_y = get_viewport_rect().size.y + 60
 	var tween = create_tween()
-	tween.tween_property(enemy, "position:y",PLAYER_LINE_Y - 50, 3)  # moves downward in a line
-
+	#tween.tween_property(enemy, "position:y",PLAYER_LINE_Y - 50, 3)  # moves downward in a line
+	tween.tween_property(enemy, "position:y", bottom_y, 5)
 
 func check_clash(player_shape):
 	for enemy in get_children():
@@ -108,7 +112,6 @@ func resolve_rps(player_type, enemy_type):
 
 func _on_enemy_timer_timeout() -> void:
 	spawn_enemy_top()
->>>>>>> a2c5f335a5d129a9e6eb83ca92bdc2f3bfc49b99
 	
 	
 func show_game_over():
