@@ -43,16 +43,22 @@ func spawn_shape(shape_scene, button_node):
 	animate_up(shape)
 	
 func _process(_delta):
-	for player in get_children():
-		if player.name == "Player":
-			check_clash(player)
+	pass
 
 
 func animate_up(shape):
+	var screen_size = get_viewport().size
 	var tween = create_tween()
-	tween.tween_property(shape, "position:y", shape.position.y - (get_viewport().size.y + 100), 1)
-	#ADD A COLLISION DETECTION THING HERE WHERE IF THE COLLISION IS DETECTED THEN THE SHAPE 
-	tween.tween_property(shape, "position:y", shape.position.y, 1)
+	
+	tween.tween_property(shape, "global_position:y", -100, 1.5)\
+		.set_trans(Tween.TRANS_LINEAR)
+	
+	tween.tween_callback(despawn_shape.bind(shape))
+
+func despawn_shape(shape):
+	print("That shape despawned")
+	if is_instance_valid(shape):
+		shape.queue_free()
 
 
 func spawn_enemy_top():
@@ -79,27 +85,24 @@ func animate_enemy_down(enemy):
 	var tween = create_tween()
 	tween.tween_property(enemy, "position:y",PLAYER_LINE_Y - 50, 3)  # moves downward in a line
 
-
-func check_clash(player_shape):
-	for enemy in get_children():
-		if enemy.name == "Enemy" and player_shape.global_position.distance_to(enemy.global_position) < 40:
-			resolve_rps(player_shape.type_name, enemy.type_name)
-			enemy.queue_free()
-			player_shape.queue_free()
-
-
-func resolve_rps(player_type, enemy_type):
-	if player_type == enemy_type:
+func resolve_rps(player_node, enemy_node):
+	var p_type = player_node.type_name
+	var e_type = enemy_node.type_name
+	
+	if p_type == e_type:
 		print("Draw!")
-	elif (player_type == "Triangle" and enemy_type == "Square") or \
-		 (player_type == "Square" and enemy_type == "Circle") or \
-		 (player_type == "Circle" and enemy_type == "Triangle"):
+	elif (p_type == "Triangle" and e_type == "Square") or \
+		 (p_type == "Square" and e_type == "Circle") or \
+		 (p_type == "Circle" and e_type == "Triangle"):
 		print("Player Wins!")
 		player_score += points_per_win
 		update_score_label()
 	else:
 		print("Player Loses!")
 		show_game_over()
+	
+	player_node.queue_free()
+	enemy_node.queue_free()
 
 
 func _on_enemy_timer_timeout() -> void:

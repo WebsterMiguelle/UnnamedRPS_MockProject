@@ -1,22 +1,23 @@
 [gd_scene format=3 uid="uid://c2dfcg4f1eu2j"]
 
 [ext_resource type="Texture2D" uid="uid://bpqid0b3j45nr" path="res://ASSETS/Icons.png" id="1_5f5wb"]
-[ext_resource type="Script" path="res://triangle.gd" id="1_idvkf"]
+[ext_resource type="Script" uid="uid://cog0rmh3s3mf" path="res://triangle.gd" id="1_idvkf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_l2v75"]
+radius = 15.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ga73r"]
 atlas = ExtResource("1_5f5wb")
 region = Rect2(0, 16, 16, 16)
 
-[node name="triangle" type="Node2D" unique_id=830929463]
+[node name="triangle" type="Area2D" unique_id=1056955307]
 script = ExtResource("1_idvkf")
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1903506441]
-
-[node name="CollisionPolygon2D" type="CollisionShape2D" parent="Area2D" unique_id=1107224988]
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="." unique_id=17781330]
 shape = SubResource("CircleShape2D_l2v75")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1128632571]
 scale = Vector2(2, 2)
 texture = SubResource("AtlasTexture_ga73r")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

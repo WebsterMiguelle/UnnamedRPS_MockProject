@@ -1,12 +1,12 @@
-extends Node2D
+extends Area2D
 
-@export var type_name = "Circle"
+@export var type_name: String = "Circle"
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	area_entered.connect(_on_area_entered)
 
+func _on_area_entered(area: Area2D) -> void:
+	if self.name == "Player" and area.name == "Enemy":
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+		if get_parent().has_method("resolve_rps"):
+			get_parent().resolve_rps(self, area)

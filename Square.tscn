@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dwnsryfse8r3s"]
 
-[ext_resource type="Script" path="res://square.gd" id="1_2eeqm"]
+[ext_resource type="Script" uid="uid://cp57scadgacvs" path="res://square.gd" id="1_2eeqm"]
 [ext_resource type="Texture2D" uid="uid://bpqid0b3j45nr" path="res://ASSETS/Icons.png" id="1_y4sij"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1dlly"]
@@ -10,12 +10,10 @@ radius = 6.0133166
 atlas = ExtResource("1_y4sij")
 region = Rect2(16, 0, 16, 16)
 
-[node name="Square" type="Node2D" unique_id=1330030281]
+[node name="Square" type="Area2D" unique_id=489151545]
 script = ExtResource("1_2eeqm")
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1778728690]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=800440697]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=800440697]
 position = Vector2(3.8146973e-06, -1.1920929e-07)
 scale = Vector2(2.5, 2.5)
 shape = SubResource("CircleShape2D_1dlly")
