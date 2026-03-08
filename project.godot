@@ -11,9 +11,10 @@ config_version=5
 [application]
 
 config/name="Mock GameDev"
-run/main_scene="uid://d2o6p7c7mhlxr"
+run/main_scene="uid://chucarwh7wvmd"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+run/canvas_textures/default_texture_filter=1
 
 [physics]
 
