@@ -1,13 +1,16 @@
-[gd_scene format=3 uid="uid://cq8jx8knch17x"]
+[gd_scene format=3 uid="uid://dwnsryfse8r3s"]
 
-[ext_resource type="Texture2D" uid="uid://bpqid0b3j45nr" path="res://ASSETS/Icons.png" id="1_y4sij"]
+[ext_resource type="Script" uid="uid://cp57scadgacvs" path="res://square.gd" id="1_2eeqm"]
 
-[node name="Square" type="Node2D" unique_id=1951689086]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2eeqm"]
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=493128215]
-position = Vector2(4.7683716e-07, 0)
-scale = Vector2(3.703125, 3.65625)
-texture = ExtResource("1_y4sij")
-hframes = 2
-vframes = 2
-frame = 1
+[node name="Square" type="Node2D" unique_id=1330030281]
+position = Vector2(0, 1)
+script = ExtResource("1_2eeqm")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1778728690]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=800440697]
+scale = Vector2(2.5, 2.5)
+shape = SubResource("RectangleShape2D_2eeqm")
+debug_color = Color(0, 0.25882354, 0.57254905, 1)

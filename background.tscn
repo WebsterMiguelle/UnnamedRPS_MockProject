@@ -1,9 +1,15 @@
 [gd_scene format=3 uid="uid://d7wl8h4oa56a"]
 
+<<<<<<< HEAD
 [ext_resource type="Script" path="res://color_rect.gd" id="1_oabld"]
 [ext_resource type="Texture2D" path="res://ASSETS/rock_sprite.png" id="2_i7s6n"]
+=======
+[ext_resource type="Script" uid="uid://ccvyibobltoo8" path="res://color_rect.gd" id="1_oabld"]
+[ext_resource type="Script" uid="uid://dm4ama6yvehdp" path="res://background.gd" id="2_xehqc"]
+>>>>>>> a2c5f335a5d129a9e6eb83ca92bdc2f3bfc49b99
 
 [node name="Background" type="Node2D" unique_id=76817665]
+script = ExtResource("2_xehqc")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1359677457]
 offset_left = -1.0
@@ -17,12 +23,12 @@ script = ExtResource("1_oabld")
 self_modulate = Color(0, 0, 0, 1)
 light_mask = 7
 visibility_layer = 127
-offset_left = 947.0
-offset_top = 4.0
-offset_right = 1130.0
-offset_bottom = 46.0
+offset_left = 8.0
+offset_top = 25.0
+offset_right = 227.0
+offset_bottom = 67.0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 30
 text = "Time: 30:00 sec"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -64,6 +70,7 @@ custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 text = "Rock"
 
+<<<<<<< HEAD
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/HBoxContainer/Rock" unique_id=1617349538]
 position = Vector2(29.999989, 31.499996)
 scale = Vector2(3.7499986, 3.9374995)
@@ -78,3 +85,53 @@ offset_top = 464.0
 offset_right = 615.0
 offset_bottom = 514.0
 color = Color(0.62690425, 2.4185701e-06, 5.2943824e-07, 1)
+=======
+[node name="Game Over Screen" type="ColorRect" parent="CanvasLayer" unique_id=157600104]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(28.971739, 16.270847)
+color = Color(0, 0, 0, 0.69411767)
+
+[node name="Gane Over" type="Label" parent="CanvasLayer/Game Over Screen" unique_id=827447277]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.9182854
+offset_top = -2.3610916
+offset_right = 76.08171
+offset_bottom = 20.638908
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.18347766, 0.30925906)
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="Enemy Timer" type="Timer" parent="." unique_id=1917302056]
+wait_time = 3.0
+autostart = true
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=1081792358]
+
+[node name="Score" type="Label" parent="CanvasLayer2" unique_id=1307053088]
+custom_minimum_size = Vector2(60, 20)
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 14.0
+offset_top = 59.999996
+offset_right = 14.0
+offset_bottom = 102.0
+grow_horizontal = 2
+scale = Vector2(1.1427871, 1.5620707)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "Score:"
+
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/Scissors" to="." method="_on_scissors_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/Paper" to="." method="_on_paper_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/Rock" to="." method="_on_rock_pressed"]
+[connection signal="timeout" from="Enemy Timer" to="." method="_on_enemy_timer_timeout"]
+>>>>>>> a2c5f335a5d129a9e6eb83ca92bdc2f3bfc49b99

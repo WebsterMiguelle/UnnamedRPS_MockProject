@@ -1,12 +1,15 @@
-[gd_scene format=3 uid="uid://ch0xe2vbw0f5w"]
+[gd_scene format=3 uid="uid://chgh2n15nmtah"]
 
-[ext_resource type="Texture2D" uid="uid://bpqid0b3j45nr" path="res://ASSETS/Icons.png" id="1_ortn3"]
+[ext_resource type="Script" uid="uid://wgtpnany1cdv" path="res://circle.gd" id="1_ot13w"]
 
-[node name="Circle" type="Node2D" unique_id=83111613]
+[sub_resource type="CircleShape2D" id="CircleShape2D_ot13w"]
+radius = 30.0
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=446988847]
-position = Vector2(9.536743e-07, 0)
-scale = Vector2(4.40625, 3.65625)
-texture = ExtResource("1_ortn3")
-hframes = 2
-vframes = 2
+[node name="circle" type="Node2D" unique_id=687958165]
+script = ExtResource("1_ot13w")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1947728827]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1194783480]
+shape = SubResource("CircleShape2D_ot13w")
+debug_color = Color(0.42318463, 9.0846794e-07, 3.128499e-07, 1)
