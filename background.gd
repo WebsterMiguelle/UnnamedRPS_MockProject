@@ -50,8 +50,9 @@ func _process(_delta):
 
 func animate_up(shape):
 	var tween = create_tween()
-	tween.tween_property(shape, "position:y", shape.position.y - 500, 0.5)
-	tween.tween_property(shape, "position:y", shape.position.y - 50, 0.5)
+	tween.tween_property(shape, "position:y", shape.position.y - (get_viewport().size.y + 100), 1)
+	#ADD A COLLISION DETECTION THING HERE WHERE IF THE COLLISION IS DETECTED THEN THE SHAPE 
+	tween.tween_property(shape, "position:y", shape.position.y, 1)
 
 
 func spawn_enemy_top():
