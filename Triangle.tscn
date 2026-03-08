@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cssi7uxtrg4qr"]
+
+[node name="Triangle" type="Node2D" unique_id=830929463]
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=964864832]
+position = Vector2(610, 439)
+color = Color(0.9699325, 0.17016068, 0, 1)
+polygon = PackedVector2Array(0, -25, 25, 25, -25, 25)

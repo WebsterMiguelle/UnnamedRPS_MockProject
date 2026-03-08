@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cq8jx8knch17x"]
+
+[node name="Square" type="Node2D" unique_id=1951689086]
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=850655630]
+custom_minimum_size = Vector2(50, 50)
+offset_left = 574.0
+offset_top = 481.0
+offset_right = 624.0
+offset_bottom = 531.0
+color = Color(0.17343599, 0.036553092, 0.78292197, 1)
