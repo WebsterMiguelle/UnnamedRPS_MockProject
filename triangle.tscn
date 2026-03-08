@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cssi7uxtrg4qr"]
+
+[ext_resource type="Script" uid="uid://cog0rmh3s3mf" path="res://triangle.gd" id="1_idvkf"]
+
+[node name="triangle" type="Node2D" unique_id=830929463]
+script = ExtResource("1_idvkf")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1903506441]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=1598284212]
+polygon = PackedVector2Array(0, -25, 25, 25, -25, 25)
