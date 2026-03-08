@@ -26,16 +26,18 @@ func _on_rock_pressed():
 	
 	
 func spawn_shape(shape_scene, button_node):
-	
 	var shape = shape_scene.instantiate()
-	var button_pos = button_node.get_global_position()
-	shape.position = button_pos + Vector2(400, 300)
-	
 	add_child(shape)
+	
+	var screen_size = get_viewport_rect().size
+	
+	var start_pos = Vector2(screen_size.x / 2, screen_size.y + 50)
+	
+	shape.global_position = start_pos
 	animate_up(shape)
 	
 func animate_up(shape):
 	var tween = create_tween()
-	tween.tween_property(shape, "position:y", shape.position.y - 150, 0.5)
+	tween.tween_property(shape, "position:y", shape.position.y - 500, 0.5)
 	
 	

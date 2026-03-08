@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://cq8jx8knch17x"]
 
+[ext_resource type="Texture2D" uid="uid://bpqid0b3j45nr" path="res://ASSETS/Icons.png" id="1_y4sij"]
+
 [node name="Square" type="Node2D" unique_id=1951689086]
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=850655630]
-custom_minimum_size = Vector2(50, 50)
-offset_left = 574.0
-offset_top = 481.0
-offset_right = 624.0
-offset_bottom = 531.0
-color = Color(0.17343599, 0.036553092, 0.78292197, 1)
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=493128215]
+position = Vector2(4.7683716e-07, 0)
+scale = Vector2(3.703125, 3.65625)
+texture = ExtResource("1_y4sij")
+hframes = 2
+vframes = 2
+frame = 1

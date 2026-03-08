@@ -1,6 +1,7 @@
-[gd_scene format=3 uid="uid://chucarwh7wvmd"]
+[gd_scene format=3 uid="uid://d7wl8h4oa56a"]
 
-[ext_resource type="Script" uid="uid://ccvyibobltoo8" path="res://color_rect.gd" id="1_oabld"]
+[ext_resource type="Script" path="res://color_rect.gd" id="1_oabld"]
+[ext_resource type="Texture2D" path="res://ASSETS/rock_sprite.png" id="2_i7s6n"]
 
 [node name="Background" type="Node2D" unique_id=76817665]
 
@@ -63,12 +64,17 @@ custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 text = "Rock"
 
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/HBoxContainer/Rock" unique_id=1617349538]
+position = Vector2(29.999989, 31.499996)
+scale = Vector2(3.7499986, 3.9374995)
+texture = ExtResource("2_i7s6n")
+
 [node name="Box" type="Node2D" parent="." unique_id=1277094788]
 
 [node name="ColorRect" type="ColorRect" parent="Box" unique_id=1270113563]
 custom_minimum_size = Vector2(50, 50)
-offset_left = 477.0
-offset_top = 427.0
-offset_right = 527.0
-offset_bottom = 477.0
+offset_left = 565.0
+offset_top = 464.0
+offset_right = 615.0
+offset_bottom = 514.0
 color = Color(0.62690425, 2.4185701e-06, 5.2943824e-07, 1)

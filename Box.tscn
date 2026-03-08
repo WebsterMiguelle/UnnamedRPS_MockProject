@@ -1,7 +1,8 @@
-[gd_scene format=3 uid="uid://d2o6p7c7mhlxr"]
+[gd_scene format=3 uid="uid://b1q0txh4ap1gv"]
 
-[ext_resource type="Script" uid="uid://ccvyibobltoo8" path="res://color_rect.gd" id="1_0bkxv"]
+[ext_resource type="Script" path="res://color_rect.gd" id="1_0bkxv"]
 [ext_resource type="Script" uid="uid://dm4ama6yvehdp" path="res://background.gd" id="1_jm3vu"]
+[ext_resource type="Texture2D" uid="uid://bpqid0b3j45nr" path="res://ASSETS/Icons.png" id="3_speaj"]
 
 [node name="Main" type="Node2D" unique_id=76817665]
 script = ExtResource("1_jm3vu")
@@ -53,6 +54,7 @@ layout_mode = 2
 size_flags_stretch_ratio = 3.0
 action_mode = 0
 text = "Scissor"
+icon = ExtResource("3_speaj")
 icon_alignment = 1
 expand_icon = true
 
@@ -65,15 +67,6 @@ text = "Paper"
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 text = "Rock"
-
-[node name="Circle" parent="." unique_id=83111613]
-position = Vector2(87, 12)
-
-[node name="Square" parent="." unique_id=1951689086]
-position = Vector2(-19, 16)
-
-[node name="Triangle" parent="." unique_id=830929463]
-position = Vector2(385, 120)
 
 [connection signal="mouse_entered" from="CanvasLayer/HBoxContainer/Scissors" to="." method="_on_scissors_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Scissors" to="." method="_on_scissors_pressed"]
