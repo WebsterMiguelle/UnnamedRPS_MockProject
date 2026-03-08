@@ -2,7 +2,56 @@
 
 [ext_resource type="Script" path="res://color_rect.gd" id="1_0bkxv"]
 [ext_resource type="Script" uid="uid://dm4ama6yvehdp" path="res://background.gd" id="1_jm3vu"]
-[ext_resource type="Texture2D" uid="uid://bpqid0b3j45nr" path="res://ASSETS/Icons.png" id="3_speaj"]
+[ext_resource type="Texture2D" uid="uid://c1a2cqrklgj5k" path="res://ASSETS/Buttons.png" id="3_speaj"]
+[ext_resource type="Texture2D" uid="uid://bpqid0b3j45nr" path="res://ASSETS/Icons.png" id="4_bybq8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bybq8"]
+atlas = ExtResource("3_speaj")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wybss"]
+atlas = ExtResource("3_speaj")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fkttd"]
+atlas = ExtResource("3_speaj")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mn0sd"]
+atlas = ExtResource("4_bybq8")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_speaj"]
+atlas = ExtResource("3_speaj")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_irfla"]
+atlas = ExtResource("3_speaj")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7r5s"]
+atlas = ExtResource("3_speaj")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8m2ik"]
+atlas = ExtResource("4_bybq8")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gyogo"]
+atlas = ExtResource("3_speaj")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qclsk"]
+atlas = ExtResource("3_speaj")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qcgqo"]
+atlas = ExtResource("3_speaj")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vkski"]
+atlas = ExtResource("4_bybq8")
+region = Rect2(0, 0, 16, 16)
 
 [node name="Main" type="Node2D" unique_id=76817665]
 script = ExtResource("1_jm3vu")
@@ -48,25 +97,49 @@ size_flags_stretch_ratio = 8.98
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="Scissors" type="Button" parent="CanvasLayer/HBoxContainer" unique_id=1128328781]
+[node name="Scissors" type="TextureButton" parent="CanvasLayer/HBoxContainer" unique_id=1588146804]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 size_flags_stretch_ratio = 3.0
 action_mode = 0
-text = "Scissor"
-icon = ExtResource("3_speaj")
-icon_alignment = 1
-expand_icon = true
+texture_normal = SubResource("AtlasTexture_bybq8")
+texture_pressed = SubResource("AtlasTexture_wybss")
+texture_hover = SubResource("AtlasTexture_fkttd")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="Paper" type="Button" parent="CanvasLayer/HBoxContainer" unique_id=1618276868]
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/HBoxContainer/Scissors" unique_id=1821001928]
+position = Vector2(29.999996, 30)
+scale = Vector2(2.5312495, 2.5625)
+texture = SubResource("AtlasTexture_mn0sd")
+
+[node name="Paper" type="TextureButton" parent="CanvasLayer/HBoxContainer" unique_id=252849140]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-text = "Paper"
+texture_normal = SubResource("AtlasTexture_speaj")
+texture_pressed = SubResource("AtlasTexture_irfla")
+texture_hover = SubResource("AtlasTexture_c7r5s")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="Rock" type="Button" parent="CanvasLayer/HBoxContainer" unique_id=1378380604]
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/HBoxContainer/Paper" unique_id=1805824328]
+position = Vector2(30.999998, 30.999998)
+scale = Vector2(2.5625, 2.8125)
+texture = SubResource("AtlasTexture_8m2ik")
+
+[node name="Rock" type="TextureButton" parent="CanvasLayer/HBoxContainer" unique_id=926700171]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-text = "Rock"
+texture_normal = SubResource("AtlasTexture_gyogo")
+texture_pressed = SubResource("AtlasTexture_qclsk")
+texture_hover = SubResource("AtlasTexture_qcgqo")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/HBoxContainer/Rock" unique_id=1920827755]
+position = Vector2(29.999992, 30.999979)
+scale = Vector2(2.812499, 2.937501)
+texture = SubResource("AtlasTexture_vkski")
 
 [connection signal="mouse_entered" from="CanvasLayer/HBoxContainer/Scissors" to="." method="_on_scissors_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Scissors" to="." method="_on_scissors_pressed"]
