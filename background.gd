@@ -30,12 +30,9 @@ func _on_rock_pressed():
 
 func spawn_shape(shape_scene, button_node):
 	var shape = shape_scene.instantiate()
-<<<<<<< HEAD
-=======
 	var button_pos = button_node.get_global_position()
 	shape.position = Vector2(get_viewport_rect().size.x / 2, PLAYER_LINE_Y)  # same Y for horizontal line
 	shape.name = "Player"
->>>>>>> a2c5f335a5d129a9e6eb83ca92bdc2f3bfc49b99
 	add_child(shape)
 	
 	var screen_size = get_viewport_rect().size
@@ -53,9 +50,7 @@ func _process(_delta):
 
 func animate_up(shape):
 	var tween = create_tween()
-<<<<<<< HEAD
 	tween.tween_property(shape, "position:y", shape.position.y - 500, 0.5)
-=======
 	tween.tween_property(shape, "position:y", shape.position.y - 50, 0.5)
 
 
@@ -108,7 +103,6 @@ func resolve_rps(player_type, enemy_type):
 
 func _on_enemy_timer_timeout() -> void:
 	spawn_enemy_top()
->>>>>>> a2c5f335a5d129a9e6eb83ca92bdc2f3bfc49b99
 	
 	
 func show_game_over():

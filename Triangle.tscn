@@ -1,11 +1,22 @@
 [gd_scene format=3 uid="uid://c2dfcg4f1eu2j"]
 
-[ext_resource type="Script" uid="uid://cog0rmh3s3mf" path="res://triangle.gd" id="1_idvkf"]
+[ext_resource type="Texture2D" uid="uid://bpqid0b3j45nr" path="res://ASSETS/Icons.png" id="1_5f5wb"]
+[ext_resource type="Script" path="res://triangle.gd" id="1_idvkf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l2v75"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ga73r"]
+atlas = ExtResource("1_5f5wb")
+region = Rect2(0, 16, 16, 16)
 
 [node name="triangle" type="Node2D" unique_id=830929463]
 script = ExtResource("1_idvkf")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1903506441]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=1598284212]
-polygon = PackedVector2Array(0, -25, 25, 25, -25, 25)
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="Area2D" unique_id=1107224988]
+shape = SubResource("CircleShape2D_l2v75")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1128632571]
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_ga73r")

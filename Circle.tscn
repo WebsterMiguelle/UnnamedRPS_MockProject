@@ -1,9 +1,14 @@
 [gd_scene format=3 uid="uid://chgh2n15nmtah"]
 
-[ext_resource type="Script" uid="uid://wgtpnany1cdv" path="res://circle.gd" id="1_ot13w"]
+[ext_resource type="Texture2D" uid="uid://bpqid0b3j45nr" path="res://ASSETS/Icons.png" id="1_ortn3"]
+[ext_resource type="Script" path="res://circle.gd" id="1_ot13w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ot13w"]
-radius = 30.0
+radius = 15.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0i48"]
+atlas = ExtResource("1_ortn3")
+region = Rect2(0, 0, 16, 16)
 
 [node name="circle" type="Node2D" unique_id=687958165]
 script = ExtResource("1_ot13w")
@@ -13,3 +18,7 @@ script = ExtResource("1_ot13w")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1194783480]
 shape = SubResource("CircleShape2D_ot13w")
 debug_color = Color(0.42318463, 9.0846794e-07, 3.128499e-07, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=840144252]
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_j0i48")
