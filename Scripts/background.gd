@@ -19,14 +19,17 @@ func update_score_label():
 	score_label.text = "Score: %d" % player_score
 
 func _on_scissors_pressed():
+	animate_button($"CanvasLayer/HBoxContainer/Scissors/Scissor Icon")
 	print("Spawning Triangle")
 	spawn_shape(triangle_scene, $"CanvasLayer/HBoxContainer/Scissors")
-
+	
 func _on_paper_pressed():
+	animate_button($"CanvasLayer/HBoxContainer/Paper/Paper Icon")
 	print("Spawning Paper")
 	spawn_shape(square_scene, $"CanvasLayer/HBoxContainer/Paper")
 
 func _on_rock_pressed():
+	animate_button($"CanvasLayer/HBoxContainer/Rock/Rock Icon")
 	print("Spawning Rock")
 	spawn_shape(circle_scene, $"CanvasLayer/HBoxContainer/Rock")
 
@@ -118,4 +121,16 @@ func show_game_over():
 	game_over_screen.visible = true
 	await get_tree().process_frame
 	get_tree().paused = true
+	
+func animate_button(button_node):
+	var tween = create_tween()
+	
+	var original_y = button_node.position.y
+	var dip_y = original_y - 10
+
+	tween.tween_property(button_node, "position:y", dip_y, 0.03)
+	
+	tween.tween_property(button_node, "position:y", original_y, 0.1)\
+		.set_trans(Tween.TRANS_BACK)\
+		.set_ease(Tween.EASE_OUT)
 	

@@ -121,7 +121,7 @@ texture_pressed = SubResource("AtlasTexture_42s4r")
 texture_hover = SubResource("AtlasTexture_kopta")
 stretch_mode = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/HBoxContainer/Paper" unique_id=1370531920]
+[node name="Paper Icon" type="Sprite2D" parent="CanvasLayer/HBoxContainer/Paper" unique_id=1370531920]
 position = Vector2(29.999998, 30.999998)
 scale = Vector2(2.75, 2.75)
 texture = SubResource("AtlasTexture_1dkp5")
@@ -134,7 +134,7 @@ texture_pressed = SubResource("AtlasTexture_b4xn0")
 texture_hover = SubResource("AtlasTexture_bdh0s")
 stretch_mode = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/HBoxContainer/Rock" unique_id=1233740449]
+[node name="Rock Icon" type="Sprite2D" parent="CanvasLayer/HBoxContainer/Rock" unique_id=1233740449]
 position = Vector2(29.999998, 30.999998)
 scale = Vector2(2.75, 2.75)
 texture = SubResource("AtlasTexture_jn2ok")
