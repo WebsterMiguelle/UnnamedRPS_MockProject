@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cssi7uxtrg4qr"]
+
+[ext_resource type="Script" uid="uid://cog0rmh3s3mf" path="res://Scripts/triangle.gd" id="1_4roi2"]
+[ext_resource type="Texture2D" uid="uid://bpqid0b3j45nr" path="res://ASSETS/Icons.png" id="1_5f5wb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4roi2"]
+atlas = ExtResource("1_5f5wb")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_idvkf"]
+radius = 27.45906
+
+[node name="triangle" type="Area2D" unique_id=2086610785]
+script = ExtResource("1_4roi2")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=363585374]
+scale = Vector2(5, 5)
+texture = SubResource("AtlasTexture_4roi2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1068785958]
+shape = SubResource("CircleShape2D_idvkf")
