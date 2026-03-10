@@ -1,8 +1,8 @@
 extends Node2D
 
-@onready var triangle_scene = preload("res://triangle.tscn")
-@onready var square_scene = preload("res://square.tscn")
-@onready var circle_scene = preload("res://circle.tscn")
+@onready var triangle_scene = preload("res://Scenes/triangle.tscn")
+@onready var square_scene = preload("res://Scenes/square.tscn")
+@onready var circle_scene = preload("res://Scenes/circle.tscn")
 @onready var game_over_screen = get_node("CanvasLayer/Game Over Screen")
 
 const PLAYER_LINE_Y = 400
