@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dm4ama6yvehdp" path="res://Scripts/background.gd" id="1_pojwb"]
 [ext_resource type="Texture2D" uid="uid://4outa15memkd" path="res://ASSETS/Buttons.png" id="3_4aqey"]
 [ext_resource type="Texture2D" uid="uid://bpqid0b3j45nr" path="res://ASSETS/Icons.png" id="4_xgxeb"]
-[ext_resource type="Script" path="res://Scenes/shake_camera.gd" id="5_ltlj5"]
+[ext_resource type="Script" uid="uid://bl5qa7n8mmpb6" path="res://Scenes/shake_camera.gd" id="5_ltlj5"]
 [ext_resource type="Shader" uid="uid://mdxx2xm26xss" path="res://Scenes/Gameplay_Background_Scroll.gdshader" id="6_jw32o"]
 [ext_resource type="Texture2D" uid="uid://bile8wypcdiqv" path="res://ASSETS/RPS_Tile_BG_clear.png" id="7_50glp"]
 
@@ -60,15 +60,17 @@ shader = ExtResource("6_jw32o")
 shader_parameter/speed = 0.1
 
 [sub_resource type="Gradient" id="Gradient_v1gob"]
-offsets = PackedFloat32Array(0.32, 0.7714286)
-colors = PackedColorArray(0.105882354, 0.1254902, 0.14901961, 1, 1, 1, 1, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.105882354, 0.1254902, 0.14901961, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_jw32o"]
 gradient = SubResource("Gradient_v1gob")
-fill = 2
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(1, 1)
+width = 56
+height = 93
+fill = 1
+fill_from = Vector2(0.48101264, 0.51898736)
+fill_to = Vector2(1, 0.9113925)
 metadata/_snap_enabled = true
+metadata/_snap_count = 79
 
 [node name="Main" type="Node2D" unique_id=76817665]
 script = ExtResource("1_pojwb")
@@ -212,7 +214,7 @@ offset_right = 492.0
 offset_bottom = 655.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-color = Color(0.105882354, 0.1254902, 0.14901961, 1)
+color = Color(0.03440687, 0.019675877, 0.08648711, 1)
 
 [node name="Pattern" type="TextureRect" parent="ColorRect" unique_id=962276701]
 modulate = Color(0.24926436, 0.24926436, 0.24926436, 1)
@@ -228,15 +230,15 @@ grow_vertical = 2
 texture = ExtResource("7_50glp")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="ColorRect" unique_id=299005372]
-visible = false
 modulate = Color(0.9968502, 0.9968502, 0.9968502, 1)
 position = Vector2(14, 11)
-color = Color(0, 0, 0, 1)
+color = Color(0.49747366, 0.49747372, 0.49747354, 1)
 
 [node name="PointLight2D" type="PointLight2D" parent="ColorRect" unique_id=689563943]
-position = Vector2(255, 249.50003)
-scale = Vector2(8.734375, 25.484375)
-energy = 0.0
+position = Vector2(254.00002, 505.875)
+scale = Vector2(9.6428585, 19.717743)
+energy = 1.27
+blend_mode = 2
 texture = SubResource("GradientTexture2D_jw32o")
 
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Scissors" to="." method="_on_scissors_pressed"]

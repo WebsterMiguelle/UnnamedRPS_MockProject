@@ -47,7 +47,7 @@ height = 64.0
 script = ExtResource("1_4roi2")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=275931310]
-scale = Vector2(4, 4)
+scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_18ods")
 autoplay = "default"
 frame = 1

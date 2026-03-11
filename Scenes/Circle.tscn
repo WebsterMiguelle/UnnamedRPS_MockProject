@@ -15,7 +15,7 @@ height = 54.0
 script = ExtResource("1_0qgdb")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1944786258]
-scale = Vector2(4, 4)
+scale = Vector2(3, 3)
 texture = SubResource("AtlasTexture_j0i48")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1194783480]
