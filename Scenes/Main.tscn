@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bd1sr2nofh4ip"]
 
 [ext_resource type="Script" uid="uid://dm4ama6yvehdp" path="res://Scripts/background.gd" id="1_pojwb"]
+[ext_resource type="FontFile" uid="uid://c0sti77qwkyg6" path="res://ASSETS/Early GameBoy.ttf" id="2_jw32o"]
 [ext_resource type="Texture2D" uid="uid://4outa15memkd" path="res://ASSETS/Buttons.png" id="3_4aqey"]
 [ext_resource type="Texture2D" uid="uid://bpqid0b3j45nr" path="res://ASSETS/Icons.png" id="4_xgxeb"]
 [ext_resource type="Script" uid="uid://bl5qa7n8mmpb6" path="res://Scripts/shake_camera.gd" id="5_ltlj5"]
@@ -72,6 +73,32 @@ fill_to = Vector2(1, 0.9113925)
 metadata/_snap_enabled = true
 metadata/_snap_count = 79
 
+[sub_resource type="Curve" id="Curve_jw32o"]
+_data = [Vector2(0.11111112, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_50glp"]
+curve_y = SubResource("Curve_jw32o")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vy5pj"]
+lifetime_randomness = 0.13
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, 3.945, 0)
+emission_shape_scale = Vector3(0.54, 6.635, 1)
+emission_shape = 1
+emission_sphere_radius = 54.33
+inherit_velocity_ratio = 0.543
+velocity_pivot = Vector3(0, -6.815, 0)
+spread = 0.0
+initial_velocity_max = 60.69
+directional_velocity_min = -261.30002
+directional_velocity_max = -161.42001
+directional_velocity_curve = SubResource("CurveXYZTexture_50glp")
+gravity = Vector3(0, 0, 0)
+scale_min = 0.0
+scale_max = 5.0
+color = Color(1, 0.6745098, 0, 1)
+
 [node name="Main" type="Node2D" unique_id=76817665]
 process_mode = 3
 script = ExtResource("1_pojwb")
@@ -88,6 +115,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Time Freenzy" type="Label" parent="CanvasLayer" unique_id=74249725]
+visible = false
 self_modulate = Color(0, 0, 0, 1)
 light_mask = 7
 visibility_layer = 127
@@ -95,8 +123,9 @@ offset_left = 8.0
 offset_top = 25.0
 offset_right = 227.0
 offset_bottom = 67.0
-theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_font_sizes/font_size = 30
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_jw32o")
+theme_override_font_sizes/font_size = 13
 text = "Time: 30:00 sec"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -161,12 +190,12 @@ scale = Vector2(2.75, 2.75)
 texture = SubResource("AtlasTexture_jn2ok")
 
 [node name="Game Over Screen" type="ColorRect" parent="CanvasLayer" unique_id=157600104]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -463.50116
-offset_bottom = -600.8502
+offset_top = -1.9999999
+offset_right = -463.43213
+offset_bottom = -601.6825
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(28.971739, 16.270847)
@@ -179,29 +208,33 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -6.9182854
-offset_top = -2.3610916
-offset_right = 76.08171
-offset_bottom = 20.638908
+offset_left = -10.838151
+offset_top = -6.7912903
+offset_right = 113.32314
+offset_bottom = 7.65691
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.18347766, 0.30925906)
+theme_override_fonts/font = ExtResource("2_jw32o")
+theme_override_font_sizes/font_size = 8
 text = "Game Over"
 horizontal_alignment = 1
 
-[node name="Retry" type="Button" parent="CanvasLayer/Game Over Screen/Game Over" unique_id=1451430581]
+[node name="Retry" type="Button" parent="CanvasLayer/Game Over Screen" unique_id=1451430581]
 layout_mode = 0
-offset_left = 34.4159
-offset_top = 19.276989
-offset_right = 351.4159
-offset_bottom = 192.277
+offset_left = 5.0394135
+offset_top = 26.304749
+offset_right = 108.90984
+offset_bottom = 59.94317
 scale = Vector2(0.06084256, 0.071649514)
-theme_override_colors/font_color = Color(1, 0, 0.11372549, 1)
-theme_override_font_sizes/font_size = 120
-text = "Retry"
+theme_override_colors/font_color = Color(1, 1, 0.36862746, 1)
+theme_override_fonts/font = ExtResource("2_jw32o")
+theme_override_font_sizes/font_size = 11
+text = "RETRY"
 icon_alignment = 1
 
 [node name="Pause Screen" type="ColorRect" parent="CanvasLayer" unique_id=1065463818]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -211,16 +244,18 @@ color = Color(0, 0, 0, 0.5019608)
 
 [node name="Paused" type="Label" parent="CanvasLayer/Pause Screen" unique_id=2093402619]
 process_mode = 1
+visible = false
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -55.0
+offset_top = -46.0
 offset_bottom = 55.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 80
+theme_override_fonts/font = ExtResource("2_jw32o")
+theme_override_font_sizes/font_size = 41
 text = "Paused"
 horizontal_alignment = 1
 
@@ -234,15 +269,17 @@ autostart = true
 custom_minimum_size = Vector2(60, 20)
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = 14.0
-offset_top = 59.999996
-offset_right = 14.0
-offset_bottom = 102.0
+offset_left = 90.26
+offset_top = 60.0
+offset_right = -127.81
+offset_bottom = 92.0
 grow_horizontal = 2
 scale = Vector2(1.1427871, 1.5620707)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 25
-text = "Score:"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_jw32o")
+theme_override_font_sizes/font_size = 20
+text = "0"
+horizontal_alignment = 1
 
 [node name="DifficultyTimer" type="Timer" parent="." unique_id=602760788]
 wait_time = 10.0
@@ -259,7 +296,7 @@ offset_right = 492.0
 offset_bottom = 655.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-color = Color(0.03440687, 0.019675877, 0.08648711, 1)
+color = Color(0.13559878, 0.12846896, 0.2668034, 1)
 
 [node name="Pattern" type="TextureRect" parent="ColorRect" unique_id=962276701]
 modulate = Color(0.24926436, 0.24926436, 0.24926436, 1)
@@ -277,18 +314,26 @@ texture = ExtResource("7_50glp")
 [node name="CanvasModulate" type="CanvasModulate" parent="ColorRect" unique_id=299005372]
 modulate = Color(0.9968502, 0.9968502, 0.9968502, 1)
 position = Vector2(14, 11)
-color = Color(0.49747366, 0.49747372, 0.49747354, 1)
+color = Color(0.32141063, 0.28948787, 0.27376977, 1)
 
 [node name="PointLight2D" type="PointLight2D" parent="ColorRect" unique_id=689563943]
 position = Vector2(254.00002, 505.875)
 scale = Vector2(9.6428585, 19.717743)
-energy = 1.27
+energy = 1.43
 blend_mode = 2
 texture = SubResource("GradientTexture2D_jw32o")
+
+[node name="CLASH_particles" type="GPUParticles2D" parent="ColorRect" unique_id=1413266556]
+position = Vector2(243.565, 684.895)
+rotation = 7.819075
+amount = 30
+lifetime = 3.8299999999999996
+randomness = 0.57
+process_material = SubResource("ParticleProcessMaterial_vy5pj")
 
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Scissors" to="." method="_on_scissors_pressed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Paper" to="." method="_on_paper_pressed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Rock" to="." method="_on_rock_pressed"]
-[connection signal="pressed" from="CanvasLayer/Game Over Screen/Game Over/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="CanvasLayer/Game Over Screen/Retry" to="." method="_on_retry_pressed"]
 [connection signal="timeout" from="Enemy Timer" to="." method="_on_enemy_timer_timeout"]
 [connection signal="timeout" from="DifficultyTimer" to="." method="_on_difficulty_timer_timeout"]

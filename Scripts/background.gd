@@ -13,7 +13,11 @@ extends Node2D
 @onready var shake_camera: Camera2D = $ShakeCamera
 @onready var clash_particles = preload("res://Scenes/clash_particles.tscn")
 @onready var draw_particles = preload("res://Scenes/draw_particles.tscn")
+@onready var h_box_container: HBoxContainer = $CanvasLayer/HBoxContainer
+@onready var pattern: TextureRect = $ColorRect/Pattern
 
+@onready var background: ColorRect = $ColorRect
+@onready var CLASH_particles: GPUParticles2D = $ColorRect/CLASH_particles
 
 @export var player_speed := 300  
 @export var player_acceleration := 20
@@ -22,7 +26,7 @@ extends Node2D
 @export var points_per_win: int = 100 
 @export var initial_enemy_speed := 800:
 	set(value):
-		initial_enemy_speed = clamp(value,600,1200)
+		initial_enemy_speed = clamp(value,600,900)
 @export var final_enemy_speed := 50:
 	set(value):
 		final_enemy_speed = clamp(value,50,200)
@@ -46,8 +50,8 @@ var hype_words = [
 	"Awesome!",
 	"Amazing!",
 	"Excellent!",
-	"Unstoppable!",
-	"Legendary!"
+	"Legendary!",
+	"CLASH!"
 ]
 
 var time_score_rate := 5  # points per second
@@ -61,7 +65,7 @@ const PLAYER_LINE_Y = 400
 const ENEMY_LINE_Y = 100
 
 func get_hype_word():
-	var index = min(combo - 1, hype_words.size() - 1)
+	var index = clamp(min(combo / 5, hype_words.size() - 1),0,6)
 	return hype_words[index]
 	
 func get_draw_word():
@@ -70,33 +74,63 @@ func get_draw_word():
 func spawn_score_popup(text, position, color := Color.WHITE):
 	var label = Label.new()
 	label.text = text
-	label.add_theme_font_size_override("font_size", 40)
+	label.add_theme_font_size_override("font_size", 15)
 	label.modulate = Color.YELLOW
 	label.position = position
 	
-	if combo <= 2:
-		label.modulate = Color.DARK_BLUE
-	elif combo <= 4:
-		label.modulate = Color.DARK_VIOLET
-	elif combo <= 6:
+	if combo < 5:
+		label.modulate = Color.LIGHT_BLUE
+	elif combo < 10:
+		label.modulate = Color.MEDIUM_ORCHID
+	elif combo < 15:
+		label.modulate = Color.PINK
+	elif combo < 20:
+		label.modulate = Color.INDIAN_RED
+	elif combo < 25:
+		label.modulate = Color.ORANGE_RED
+	elif combo < 30:
 		label.modulate = Color.ORANGE
-	elif combo <= 8:
-		label.modulate = Color.RED
 	else:
-		label.modulate = Color.MAGENTA
-		
+		label.modulate = Color.GOLD
 	add_child(label)
 
 	var tween = create_tween()
 	tween.parallel().tween_property(label, "position:y", label.position.y - 80, 1.0)
 	tween.parallel().tween_property(label, "modulate:a", 0, 1.0)
 	tween.tween_callback(label.queue_free)
+	
+func spawn_clash_popup(text, color := Color.WHITE):
+	var label = Label.new()
+	label.text = text
+	label.add_theme_font_size_override("font_size", 30)
+	label.modulate = color
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.global_position = h_box_container.global_position
+	label.position.y -= 100 
+	
+	
 
+	add_child(label)
+	slow_motion_effect(0.1,1)
+	var tween = create_tween()
+	tween.parallel().tween_property(label, "position:y", label.position.y - 240, 1.0)
+	tween.parallel().tween_property(label, "modulate:a", 0, 1.0)
+	tween.tween_callback(label.queue_free)
+
+func slow_motion_effect(target:float,duration:float):
+	#SLOW MOTION EFFECT
+	var tween = create_tween()
+	tween.tween_property(Engine, "time_scale", target, 0)
+	tween.tween_property(Engine, "time_scale", 1, duration)
+	
 func _ready():
 	#var node = get_node('')
 	enemy_timer.wait_time = enemy_spawn_rate
 	enemy_headstart()
 	pause_screen.visible = false
+	game_over_screen.visible = false
+	background.color = Color.BLACK
+	CLASH_particles.emitting = false
 	
 func _input(event):
 	if event is InputEventKey and event.pressed and event.keycode == KEY_SPACE:
@@ -105,7 +139,7 @@ func _input(event):
 		print("Paused" if get_tree().paused else "Resumed")
 		
 func update_score_label():
-	score_label.text = "Score: %d  Combo: x%d" % [player_score, combo]
+	score_label.text = str(player_score)
 
 func _on_scissors_pressed():
 	print("Spawning Triangle")
@@ -143,15 +177,6 @@ func _process(delta):
 	time_accumulator += delta
 	if time_accumulator >= 1.0:
 		var seconds_passed = int(time_accumulator)
-		
-		var gained = time_score_rate * seconds_passed * max(1, combo)
-		player_score += gained
-	
-		#player_score += time_score_rate * seconds_passed
-		time_accumulator -= seconds_passed  
-		spawn_score_popup("+%d" % gained, Vector2(100, 50), Color(0.8, 0.8, 1))
-		
-	update_score_label()	
 	
 	for player in get_tree().get_nodes_in_group("players"):
 		if player.position.y > 0:
@@ -210,13 +235,11 @@ func check_clash(player_shape):
 			enemy.is_clashed = true
 			player_shape.is_clashed = true
 			resolve_rps(player_shape.type_name, enemy.type_name, player_shape.global_position)
-			
 			var shake_power = clamp(0.5 + combo * 0.1, 0.2, 0.8)
 			shake_camera.add_trauma(shake_power)
 			var tween = create_tween()
 			tween.tween_property(Engine, "time_scale", 0.1, 0)
 			tween.tween_property(Engine, "time_scale", 1, 0.1)
-			
 			
 			# Throw shapes off screen
 			var rotation_speed = randi_range(360,720)
@@ -242,6 +265,9 @@ func resolve_rps(player_type, enemy_type, position: Vector2 = Vector2(-1,-1)):
 	if player_type == enemy_type:
 		print("Draw!")
 		combo = 0
+		var tween = create_tween()
+		tween.tween_property(background, "color", Color.BLACK, 0.2)
+		CLASH_particles.emitting = false
 		
 		var particle = draw_particles.instantiate()
 		particle.position = position
@@ -260,7 +286,9 @@ func resolve_rps(player_type, enemy_type, position: Vector2 = Vector2(-1,-1)):
 		if position != Vector2(-1,-1):
 			var particle = clash_particles.instantiate()
 			particle.position = position
-			particle.amount = 10 + combo * 3
+			var particle_amount = clamp(10 + combo * 3,10,30)
+			particle.amount = particle_amount
+			
 			add_child(particle)
 			
 		combo += 1
@@ -269,9 +297,23 @@ func resolve_rps(player_type, enemy_type, position: Vector2 = Vector2(-1,-1)):
 		update_score_label()
 		
 		var hype = get_hype_word()
-		var popup_text = "%s +%d x%d" % [hype, gained_points, combo]
+		var popup_text = "%s x%d" % [hype, combo]
 		
-		spawn_score_popup(popup_text, position)
+		if combo > 2:
+			spawn_score_popup(popup_text, position)
+		if combo == 10:
+			spawn_clash_popup("SUPER CLASH!",Color.SKY_BLUE)
+			var tween = create_tween()
+			tween.tween_property(background, "color", Color("221a4a"), 0.2)
+		elif combo == 20:
+			spawn_clash_popup("MEGA CLASH!", Color.HOT_PINK)
+			var tween = create_tween()
+			tween.tween_property(background, "color", Color("6a2331"), 0.2)
+		elif combo == 30:
+			spawn_clash_popup("RPS CLASH!", Color.GOLDENROD)
+			var tween = create_tween()
+			tween.tween_property(background, "color", Color("7d3300"), 0.2)
+			CLASH_particles.emitting = true
 		
 		var shake_power = clamp(0.5 + combo * 0.1, 0.5, 2.0)
 		shake_camera.add_trauma(shake_power)
@@ -306,8 +348,8 @@ func _on_retry_pressed() -> void:
 
 
 func _on_difficulty_timer_timeout() -> void:
-	final_enemy_speed += 10
+	final_enemy_speed += 20
 	enemy_spawn_rate -= 0.2
 	enemy_timer.wait_time = enemy_spawn_rate
-	initial_enemy_speed += 25
+	initial_enemy_speed += 30
 	print('DIFFICULTY UP!')
