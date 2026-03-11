@@ -1,22 +1,58 @@
 [gd_scene format=3 uid="uid://cq8jx8knch17x"]
 
 [ext_resource type="Script" uid="uid://cp57scadgacvs" path="res://Scripts/square.gd" id="1_1dlly"]
-[ext_resource type="Texture2D" uid="uid://bpqid0b3j45nr" path="res://ASSETS/Icons.png" id="1_y4sij"]
+[ext_resource type="Texture2D" uid="uid://dv13m1upj71pi" path="res://ASSETS/Paper-Sheet.png" id="2_76r1s"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1dlly"]
-atlas = ExtResource("1_y4sij")
+[sub_resource type="AtlasTexture" id="AtlasTexture_3yas2"]
+atlas = ExtResource("2_76r1s")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kth6w"]
+atlas = ExtResource("2_76r1s")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_y4sij"]
-radius = 5.0990195
+[sub_resource type="AtlasTexture" id="AtlasTexture_h7yga"]
+atlas = ExtResource("2_76r1s")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kbbjx"]
+atlas = ExtResource("2_76r1s")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yuc4m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3yas2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kth6w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h7yga")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kbbjx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_76r1s"]
+radius = 27.0
+height = 66.0
 
 [node name="Square" type="Area2D" unique_id=1901825666]
 script = ExtResource("1_1dlly")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1530337131]
-rotation = -1.246165
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1135046933]
 scale = Vector2(3, 3)
-texture = SubResource("AtlasTexture_1dlly")
+sprite_frames = SubResource("SpriteFrames_yuc4m")
+autoplay = "default"
+frame = 3
+frame_progress = 0.58433
+speed_scale = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=800440697]
-shape = SubResource("CircleShape2D_y4sij")
+shape = SubResource("CapsuleShape2D_76r1s")

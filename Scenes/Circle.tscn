@@ -7,8 +7,9 @@
 atlas = ExtResource("2_jnffg")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ot13w"]
-radius = 5.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0qgdb"]
+radius = 20.0
+height = 54.0
 
 [node name="circle" type="Area2D" unique_id=359608244]
 script = ExtResource("1_0qgdb")
@@ -18,4 +19,5 @@ scale = Vector2(3, 3)
 texture = SubResource("AtlasTexture_j0i48")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1194783480]
-shape = SubResource("CircleShape2D_ot13w")
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_0qgdb")
