@@ -1,11 +1,9 @@
 [gd_scene format=3 uid="uid://bd1sr2nofh4ip"]
 
 [ext_resource type="Script" uid="uid://dm4ama6yvehdp" path="res://Scripts/background.gd" id="1_pojwb"]
-[ext_resource type="Script" uid="uid://ccvyibobltoo8" path="res://Scripts/color_rect.gd" id="2_4aqey"]
 [ext_resource type="Texture2D" uid="uid://4outa15memkd" path="res://ASSETS/Buttons.png" id="3_4aqey"]
 [ext_resource type="Texture2D" uid="uid://bpqid0b3j45nr" path="res://ASSETS/Icons.png" id="4_xgxeb"]
 [ext_resource type="Script" uid="uid://bl5qa7n8mmpb6" path="res://Scripts/shake_camera.gd" id="5_ltlj5"]
-[ext_resource type="Script" uid="uid://bl5qa7n8mmpb6" path="res://Scenes/shake_camera.gd" id="5_ltlj5"]
 [ext_resource type="Shader" uid="uid://mdxx2xm26xss" path="res://Scenes/Gameplay_Background_Scroll.gdshader" id="6_jw32o"]
 [ext_resource type="Texture2D" uid="uid://bile8wypcdiqv" path="res://ASSETS/RPS_Tile_BG_clear.png" id="7_50glp"]
 
@@ -78,16 +76,10 @@ metadata/_snap_count = 79
 process_mode = 3
 script = ExtResource("1_pojwb")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1359677457]
-process_mode = 1
-offset_top = -6.0
-offset_right = 1153.0
-offset_bottom = 648.0
-script = ExtResource("2_4aqey")
-
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=938028321]
 
 [node name="DarkOverlay" type="ColorRect" parent="CanvasLayer" unique_id=1454542722]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
