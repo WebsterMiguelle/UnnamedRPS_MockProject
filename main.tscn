@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://dh4d75d00eypi"]
+
+[ext_resource type="Script" uid="uid://dm4ama6yvehdp" path="res://background.gd" id="1_0xm2m"]
+[ext_resource type="Script" path="res://color_rect.gd" id="2_h2yge"]
+
+[node name="Main" type="Node2D" unique_id=76817665]
+script = ExtResource("1_0xm2m")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1359677457]
+offset_left = -6.0
+offset_top = 2.0
+offset_right = 1147.0
+offset_bottom = 656.0
+script = ExtResource("2_h2yge")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=938028321]
+
+[node name="Time Freenzy" type="Label" parent="CanvasLayer" unique_id=74249725]
+self_modulate = Color(0, 0, 0, 1)
+light_mask = 7
+visibility_layer = 127
+offset_left = 947.0
+offset_top = 4.0
+offset_right = 1130.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "Time: 30:00 sec"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=50806588]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.95400006
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -168.0
+offset_top = -52.192017
+offset_right = 171.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 8.98
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Scissors" type="Button" parent="CanvasLayer/HBoxContainer" unique_id=1128328781]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_stretch_ratio = 3.0
+action_mode = 0
+text = "Scissor"
+icon_alignment = 1
+expand_icon = true
+
+[node name="Paper" type="Button" parent="CanvasLayer/HBoxContainer" unique_id=1618276868]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+text = "Paper"
+
+[node name="Rock" type="Button" parent="CanvasLayer/HBoxContainer" unique_id=1378380604]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+text = "Rock"
+
+[connection signal="mouse_entered" from="CanvasLayer/HBoxContainer/Scissors" to="." method="_on_scissors_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/Scissors" to="." method="_on_scissors_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/Paper" to="." method="_on_paper_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/Rock" to="." method="_on_rock_pressed"]

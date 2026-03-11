@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://6j670v8agu4p"]
 
-[ext_resource type="Script" uid="uid://ctd0luj3026do" path="res://Scripts/clash_particles.gd" id="1_fqgyo"]
+[ext_resource type="Script" uid="uid://ctd0luj3026do" path="res://Scenes/clash_particles.gd" id="1_fqgyo"]
 
 [sub_resource type="Curve" id="Curve_pbw6q"]
 _limits = [0.0, 3.0, 0.0, 1.0]

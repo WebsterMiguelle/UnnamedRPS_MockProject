@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://gu2h8scbagpt"]
 
-[ext_resource type="Script" uid="uid://bquhuar4c8bb7" path="res://Scripts/draw_particles.gd" id="1_7hevp"]
+[ext_resource type="Script" uid="uid://bquhuar4c8bb7" path="res://Scenes/draw_particles.gd" id="1_7hevp"]
 
 [sub_resource type="Curve" id="Curve_ulk4y"]
 _limits = [-24.58, 1.0, 0.0, 1.0]
