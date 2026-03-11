@@ -125,7 +125,7 @@ func spawn_shape(shape_scene, button_node):
 	var button_pos = button_node.get_global_position()
 	#shape.position = Vector2(get_viewport_rect().size.x / 2, PLAYER_LINE_Y)  # same Y for horizontal line
 	var start_x = get_viewport_rect().size.x / 2
-	var start_y = get_viewport_rect().size.y - 50  # bottom of screen
+	var start_y = get_viewport_rect().size.y + 50  # bottom of screen
 	shape.position = Vector2(start_x, start_y)
 	if shape.has_method("setup"):
 		shape.setup(player_speed, player_acceleration, 0)
@@ -153,38 +153,24 @@ func _process(delta):
 		
 	update_score_label()	
 	
-	enemy_spawn_timer += delta
-	if enemy_spawn_timer >= enemy_spawn_rate:
-		spawn_enemy_top()
-		enemy_spawn_timer = 0.0
-		
 	for player in get_tree().get_nodes_in_group("players"):
-		player.position.y -= player_speed * delta
+		if player.position.y > 0:
+			player.speed += player.acceleration
+		player.position.y -= player.speed * delta
 		check_clash(player)
 		if player.position.y < -50:
 			player.queue_free()
 				
 	for enemy in get_tree().get_nodes_in_group("enemies"):
-		if enemy.position.y > get_viewport_rect().size.y:
+		if enemy.speed > final_enemy_speed:
+			enemy.speed -= enemy.decceleration
+		enemy.position.y += enemy.speed * delta
+		if enemy.position.y > get_viewport_rect().size.y and enemy.is_clashed == false:
 			show_game_over()
 			return  
-				
-	enemy_spawn_timer += delta
-	if enemy_spawn_timer >= enemy_spawn_rate:
-		spawn_enemy_top()
-		enemy_spawn_timer = 0.0
-					
-func animate_up(shape):
-	var tween = create_tween()
-	tween.tween_property(shape, "position:y", shape.position.y - 50, 0.5)
-	
-func animate_enemy_down(enemy):
-	var bottom_y = get_viewport_rect().size.y + 60
-	var tween = create_tween()
-	tween.set_pause_mode(Tween.TWEEN_PAUSE_STOP)
-	tween.tween_property(enemy, "position:y", bottom_y, 5)
-	
-func spawn_enemy_top(value: int = -1):
+			
+
+func spawn_enemy_top(value: int):
 	var shape_scene
 	if value == -1:
 		var rand = randi() % 3
@@ -205,7 +191,6 @@ func spawn_enemy_top(value: int = -1):
 	enemy.position = Vector2(get_viewport_rect().size.x / 2, -50)
 	enemy.scale.y = -1
 	add_child(enemy)
-	animate_enemy_down(enemy)
 
 func enemy_headstart():
 	spawn_enemy_top(-1)
@@ -226,7 +211,7 @@ func check_clash(player_shape):
 			player_shape.is_clashed = true
 			resolve_rps(player_shape.type_name, enemy.type_name, player_shape.global_position)
 			
-			var shake_power = clamp(0.5 + combo * 0.1, 0.5, 2.0)
+			var shake_power = clamp(0.5 + combo * 0.1, 0.2, 0.8)
 			shake_camera.add_trauma(shake_power)
 			var tween = create_tween()
 			tween.tween_property(Engine, "time_scale", 0.1, 0)
@@ -318,3 +303,11 @@ func show_game_over():
 func _on_retry_pressed() -> void:
 	get_tree().paused = false
 	get_tree().reload_current_scene()
+
+
+func _on_difficulty_timer_timeout() -> void:
+	final_enemy_speed += 10
+	enemy_spawn_rate -= 0.2
+	enemy_timer.wait_time = enemy_spawn_rate
+	initial_enemy_speed += 25
+	print('DIFFICULTY UP!')
