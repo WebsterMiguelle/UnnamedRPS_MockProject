@@ -144,7 +144,7 @@ func animate_enemy_down(enemy):
 
 func check_clash(player_shape):
 	for enemy in get_tree().get_nodes_in_group("enemies"):
-		if player_shape.global_position.distance_to(enemy.global_position) < 40:
+		if player_shape.global_position.distance_to(enemy.global_position) < 40 and player_shape.is_clashed == false:
 			
 			
 			#MARKED AS CLASHED
@@ -155,7 +155,7 @@ func check_clash(player_shape):
 			resolve_rps(player_shape.type_name, enemy.type_name, player_shape.global_position)
 			
 			#SHAKE EFFECT
-			shake_camera.add_trauma(0.2)
+			shake_camera.add_trauma(0.8)
 			
 			#SLOW MOTION EFFECT
 			var tween = create_tween()

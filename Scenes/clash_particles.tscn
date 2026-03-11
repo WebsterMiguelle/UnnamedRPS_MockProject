@@ -27,7 +27,7 @@ scale_over_velocity_curve = SubResource("CurveTexture_v1gob")
 color = Color(1, 0.824541, 0.59681135, 1)
 
 [node name="ClashParticles" type="GPUParticles2D" unique_id=1745936587]
-emitting = false
+amount = 20
 lifetime = 1.47
 preprocess = 1.64
 explosiveness = 1.0
