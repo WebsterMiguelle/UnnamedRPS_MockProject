@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://6j670v8agu4p"]
+
+[ext_resource type="Script" uid="uid://ctd0luj3026do" path="res://Scenes/clash_particles.gd" id="1_fqgyo"]
+
+[sub_resource type="Curve" id="Curve_pbw6q"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 3), 0.0, 0.0, 0, 0, Vector2(1, 1.1420903), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_v1gob"]
+curve = SubResource("Curve_pbw6q")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jw32o"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 245.40999
+initial_velocity_max = 365.61
+angular_velocity_min = -380.81
+angular_velocity_max = -153.56001
+gravity = Vector3(3.45, 104.115, 0)
+scale_min = 0.0
+scale_max = 10.309999
+scale_over_velocity_min = 171.31
+scale_over_velocity_max = 234.67
+scale_over_velocity_curve = SubResource("CurveTexture_v1gob")
+color = Color(1, 0.824541, 0.59681135, 1)
+
+[node name="ClashParticles" type="GPUParticles2D" unique_id=1745936587]
+amount = 20
+lifetime = 1.47
+preprocess = 1.64
+explosiveness = 1.0
+randomness = 0.34
+fixed_fps = 0
+process_material = SubResource("ParticleProcessMaterial_jw32o")
+script = ExtResource("1_fqgyo")
