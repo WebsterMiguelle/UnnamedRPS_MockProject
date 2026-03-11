@@ -22,7 +22,7 @@ extends Node2D
 @export var points_per_win: int = 100 
 @export var initial_enemy_speed := 800:
 	set(value):
-		initial_enemy_speed = clamp(value,800,1600)
+		initial_enemy_speed = clamp(value,600,1200)
 @export var final_enemy_speed := 50:
 	set(value):
 		final_enemy_speed = clamp(value,50,200)
