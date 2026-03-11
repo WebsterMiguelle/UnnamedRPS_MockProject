@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dps6qtwoket02"]
+
+[ext_resource type="Script" uid="uid://wgtpnany1cdv" path="res://Scripts/circle.gd" id="1_0qgdb"]
+[ext_resource type="Texture2D" uid="uid://bpqid0b3j45nr" path="res://ASSETS/Icons.png" id="2_jnffg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0i48"]
+atlas = ExtResource("2_jnffg")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ot13w"]
+radius = 5.0
+
+[node name="circle" type="Area2D" unique_id=359608244]
+script = ExtResource("1_0qgdb")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1944786258]
+scale = Vector2(3, 3)
+texture = SubResource("AtlasTexture_j0i48")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1194783480]
+shape = SubResource("CircleShape2D_ot13w")

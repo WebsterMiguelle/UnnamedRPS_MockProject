@@ -1,21 +1,17 @@
 [gd_scene format=3 uid="uid://d2o6p7c7mhlxr"]
 
-[ext_resource type="Script" uid="uid://ccvyibobltoo8" path="res://color_rect.gd" id="1_0bkxv"]
-[ext_resource type="Script" uid="uid://dm4ama6yvehdp" path="res://background.gd" id="1_jm3vu"]
+[ext_resource type="Script" uid="uid://dm4ama6yvehdp" path="res://Scripts/background.gd" id="1_42nxc"]
+[ext_resource type="Script" uid="uid://ccvyibobltoo8" path="res://Scripts/color_rect.gd" id="2_mckbn"]
 
 [node name="Main" type="Node2D" unique_id=76817665]
-script = ExtResource("1_jm3vu")
-total_time = null
-player_speed = null
-enemy_speed = null
-points_per_win = null
+script = ExtResource("1_42nxc")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1359677457]
 offset_left = -6.0
 offset_top = 2.0
 offset_right = 1147.0
 offset_bottom = 656.0
-script = ExtResource("1_0bkxv")
+script = ExtResource("2_mckbn")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=938028321]
 

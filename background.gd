@@ -4,17 +4,30 @@ extends Node2D
 @onready var square_scene = preload("res://square.tscn")
 @onready var circle_scene = preload("res://circle.tscn")
 @onready var game_over_screen = get_node("CanvasLayer/Game Over Screen")
+@onready var score_label = $CanvasLayer2/Score
+@onready var dark_overlay = $CanvasLayer/DarkOverlay
+@onready var pause_screen = $CanvasLayer/ColorRect
+
+@export var player_speed := 200  
+@export var enemy_speed := 150 
+@export var points_per_win: int = 100 
+
+var player_score: int = 0
+var enemySpawnDelay: float = 2.0  # seconds between enemy spawns
+var enemy_spawn_timer: float = 0.0
 
 const PLAYER_LINE_Y = 400
 const ENEMY_LINE_Y = 100
 
-@export var player_speed := 200  
-@export var enemy_speed := 150 
-
-@onready var score_label = $CanvasLayer2/Score
-var player_score: int = 0
-@export var points_per_win: int = 100 
-
+func _ready():
+	pause_screen.visible = false
+	
+func _input(event):
+	if event is InputEventKey and event.pressed and event.keycode == KEY_SPACE:
+		get_tree().paused = !get_tree().paused
+		pause_screen.visible = get_tree().paused
+		print("Paused" if get_tree().paused else "Resumed")
+		
 func update_score_label():
 	score_label.text = "Score: %d" % player_score
 
@@ -30,9 +43,9 @@ func _on_rock_pressed():
 	print("Spawning Rock")
 	spawn_shape(circle_scene, $"CanvasLayer/HBoxContainer/Rock")
 
-
 func spawn_shape(shape_scene, button_node):
 	var shape = shape_scene.instantiate()
+	@warning_ignore("unused_variable")
 	var button_pos = button_node.get_global_position()
 	#shape.position = Vector2(get_viewport_rect().size.x / 2, PLAYER_LINE_Y)  # same Y for horizontal line
 	var start_x = get_viewport_rect().size.x / 2
@@ -40,22 +53,30 @@ func spawn_shape(shape_scene, button_node):
 	shape.position = Vector2(start_x, start_y)
 	shape.name = "Player"
 	add_child(shape)
-	#animate_up(shape)
 	
+	
+			
 func _process(delta):
+	if get_tree().paused:
+		return
 	for player in get_children():
-		if player.name == "Player":
+		if player is Node2D and player.name == "Player":
 			player.position.y -= player_speed * delta
 			check_clash(player)
-			if player.position.y < -50:  # off top of screen
-				player.queue_free()
+			if player.position.y < -50:
+					player.queue_free()
 				
 	for enemy in get_children():
-		if enemy.name == "Enemy":
-			enemy.position.y += enemy_speed * delta  # move down
-			if enemy.position.y > get_viewport_rect().size.y + 50:  # off bottom of screen
+		if enemy is Node2D and enemy.name == "Enemy":
+			#enemy.position.y += enemy_speed * delta
+			if enemy.position.y > get_viewport_rect().size.y + 50:
 				enemy.queue_free()
-
+				
+	enemy_spawn_timer += delta
+	if enemy_spawn_timer >= enemySpawnDelay:
+		spawn_enemy_top()
+		enemy_spawn_timer = 0.0
+					
 func animate_up(shape):
 	var tween = create_tween()
 	tween.tween_property(shape, "position:y", shape.position.y - 50, 0.5)
@@ -85,6 +106,7 @@ func spawn_enemy_top():
 func animate_enemy_down(enemy):
 	var bottom_y = get_viewport_rect().size.y + 60
 	var tween = create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_STOP)
 	#tween.tween_property(enemy, "position:y",PLAYER_LINE_Y - 50, 3)  # moves downward in a line
 	tween.tween_property(enemy, "position:y", bottom_y, 5)
 
@@ -109,10 +131,6 @@ func resolve_rps(player_type, enemy_type):
 		print("Player Loses!")
 		show_game_over()
 
-
-func _on_enemy_timer_timeout() -> void:
-	spawn_enemy_top()
-	
 	
 func show_game_over():
 	game_over_screen.visible = true

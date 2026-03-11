@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cq8jx8knch17x"]
+
+[ext_resource type="Script" uid="uid://cp57scadgacvs" path="res://Scripts/square.gd" id="1_1dlly"]
+[ext_resource type="Texture2D" uid="uid://bpqid0b3j45nr" path="res://ASSETS/Icons.png" id="1_y4sij"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dlly"]
+atlas = ExtResource("1_y4sij")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y4sij"]
+radius = 5.0990195
+
+[node name="Square" type="Area2D" unique_id=1901825666]
+script = ExtResource("1_1dlly")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1530337131]
+rotation = -1.246165
+scale = Vector2(3, 3)
+texture = SubResource("AtlasTexture_1dlly")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=800440697]
+shape = SubResource("CircleShape2D_y4sij")

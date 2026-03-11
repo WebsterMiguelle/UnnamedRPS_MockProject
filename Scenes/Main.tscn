@@ -1,0 +1,197 @@
+[gd_scene format=3 uid="uid://chucarwh7wvmd"]
+
+[ext_resource type="Script" uid="uid://dm4ama6yvehdp" path="res://Scripts/background.gd" id="1_pojwb"]
+[ext_resource type="Script" uid="uid://ccvyibobltoo8" path="res://Scripts/color_rect.gd" id="2_4aqey"]
+[ext_resource type="Texture2D" uid="uid://4outa15memkd" path="res://ASSETS/Buttons.png" id="3_4aqey"]
+[ext_resource type="Texture2D" uid="uid://bpqid0b3j45nr" path="res://ASSETS/Icons.png" id="4_xgxeb"]
+[ext_resource type="Script" uid="uid://bl5qa7n8mmpb6" path="res://Scenes/shake_camera.gd" id="5_ltlj5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xgxeb"]
+atlas = ExtResource("3_4aqey")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4aqey"]
+atlas = ExtResource("3_4aqey")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ltlj5"]
+atlas = ExtResource("3_4aqey")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ys8v"]
+atlas = ExtResource("4_xgxeb")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rymcx"]
+atlas = ExtResource("3_4aqey")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42s4r"]
+atlas = ExtResource("3_4aqey")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kopta"]
+atlas = ExtResource("3_4aqey")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dkp5"]
+atlas = ExtResource("4_xgxeb")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wi0l6"]
+atlas = ExtResource("3_4aqey")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b4xn0"]
+atlas = ExtResource("3_4aqey")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bdh0s"]
+atlas = ExtResource("3_4aqey")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jn2ok"]
+atlas = ExtResource("4_xgxeb")
+region = Rect2(0, 0, 16, 16)
+
+[node name="Main" type="Node2D" unique_id=76817665]
+script = ExtResource("1_pojwb")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=938028321]
+
+[node name="Time Freenzy" type="Label" parent="CanvasLayer" unique_id=74249725]
+self_modulate = Color(0, 0, 0, 1)
+light_mask = 7
+visibility_layer = 127
+offset_left = 8.0
+offset_top = 25.0
+offset_right = 227.0
+offset_bottom = 67.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Time: 30:00 sec"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=50806588]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.95400006
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -168.0
+offset_top = -52.192017
+offset_right = 171.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 8.98
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Scissors" type="TextureButton" parent="CanvasLayer/HBoxContainer" unique_id=1659871019]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_stretch_ratio = 3.0
+action_mode = 0
+texture_normal = SubResource("AtlasTexture_xgxeb")
+texture_pressed = SubResource("AtlasTexture_4aqey")
+texture_hover = SubResource("AtlasTexture_ltlj5")
+stretch_mode = 0
+
+[node name="Scissor Icon" type="Sprite2D" parent="CanvasLayer/HBoxContainer/Scissors" unique_id=2062179597]
+position = Vector2(29.699982, 29.999985)
+scale = Vector2(2.75, 2.75)
+texture = SubResource("AtlasTexture_7ys8v")
+
+[node name="Paper" type="TextureButton" parent="CanvasLayer/HBoxContainer" unique_id=471853114]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_rymcx")
+texture_pressed = SubResource("AtlasTexture_42s4r")
+texture_hover = SubResource("AtlasTexture_kopta")
+stretch_mode = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/HBoxContainer/Paper" unique_id=1370531920]
+position = Vector2(29.999998, 30.999998)
+scale = Vector2(2.75, 2.75)
+texture = SubResource("AtlasTexture_1dkp5")
+
+[node name="Rock" type="TextureButton" parent="CanvasLayer/HBoxContainer" unique_id=1092247442]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_wi0l6")
+texture_pressed = SubResource("AtlasTexture_b4xn0")
+texture_hover = SubResource("AtlasTexture_bdh0s")
+stretch_mode = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/HBoxContainer/Rock" unique_id=1233740449]
+position = Vector2(29.999998, 30.999998)
+scale = Vector2(2.75, 2.75)
+texture = SubResource("AtlasTexture_jn2ok")
+
+[node name="Game Over Screen" type="ColorRect" parent="CanvasLayer" unique_id=157600104]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(28.971739, 16.270847)
+color = Color(0, 0, 0, 0.69411767)
+
+[node name="Gane Over" type="Label" parent="CanvasLayer/Game Over Screen" unique_id=827447277]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.9182854
+offset_top = -2.3610916
+offset_right = 76.08171
+offset_bottom = 20.638908
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.18347766, 0.30925906)
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="Enemy Timer" type="Timer" parent="." unique_id=1917302056]
+wait_time = 3.0
+autostart = true
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=1081792358]
+
+[node name="Score" type="Label" parent="CanvasLayer2" unique_id=1307053088]
+custom_minimum_size = Vector2(60, 20)
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 14.0
+offset_top = 59.999996
+offset_right = 14.0
+offset_bottom = 102.0
+grow_horizontal = 2
+scale = Vector2(1.1427871, 1.5620707)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "Score:"
+
+[node name="DifficultyTimer" type="Timer" parent="." unique_id=602760788]
+wait_time = 10.0
+autostart = true
+
+[node name="ShakeCamera" type="Camera2D" parent="." unique_id=706726377]
+position = Vector2(575, 319)
+script = ExtResource("5_ltlj5")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1359677457]
+offset_top = -6.0
+offset_right = 1153.0
+offset_bottom = 648.0
+script = ExtResource("2_4aqey")
+
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/Scissors" to="." method="_on_scissors_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/Paper" to="." method="_on_paper_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/Rock" to="." method="_on_rock_pressed"]
+[connection signal="timeout" from="Enemy Timer" to="." method="_on_enemy_timer_timeout"]
+[connection signal="timeout" from="DifficultyTimer" to="." method="_on_difficulty_timer_timeout"]
