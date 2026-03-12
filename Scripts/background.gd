@@ -353,3 +353,9 @@ func _on_difficulty_timer_timeout() -> void:
 	enemy_timer.wait_time = enemy_spawn_rate
 	initial_enemy_speed += 30
 	print('DIFFICULTY UP!')
+
+
+func _on_pause_button_pressed() -> void:
+	get_tree().paused = !get_tree().paused
+	pause_screen.visible = get_tree().paused
+	print("Paused" if get_tree().paused else "Resumed")

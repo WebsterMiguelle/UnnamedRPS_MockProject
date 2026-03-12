@@ -4,7 +4,9 @@
 [ext_resource type="FontFile" uid="uid://c0sti77qwkyg6" path="res://ASSETS/Early GameBoy.ttf" id="2_jw32o"]
 [ext_resource type="Texture2D" uid="uid://4outa15memkd" path="res://ASSETS/Buttons.png" id="3_4aqey"]
 [ext_resource type="Texture2D" uid="uid://bpqid0b3j45nr" path="res://ASSETS/Icons.png" id="4_xgxeb"]
+[ext_resource type="Texture2D" uid="uid://cyrdkllswramp" path="res://ASSETS/Pause-Buttons.png" id="5_50glp"]
 [ext_resource type="Script" uid="uid://ltpn2s5wbsmj" path="res://Scripts/camera_shake.gd" id="5_jw32o"]
+[ext_resource type="FontFile" uid="uid://blyom1ht1bg7t" path="res://ASSETS/Pixel Game.otf" id="5_vy5pj"]
 [ext_resource type="Shader" path="res://Scenes/Gameplay_Background_Scroll.gdshader" id="6_jw32o"]
 [ext_resource type="Texture2D" uid="uid://bile8wypcdiqv" path="res://ASSETS/RPS_Tile_BG_clear.png" id="7_50glp"]
 
@@ -55,6 +57,18 @@ region = Rect2(0, 16, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_jn2ok"]
 atlas = ExtResource("4_xgxeb")
 region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vy5pj"]
+atlas = ExtResource("5_50glp")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bmxlf"]
+atlas = ExtResource("5_50glp")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4kpch"]
+atlas = ExtResource("5_50glp")
+region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vy5pj"]
 shader = ExtResource("6_jw32o")
@@ -193,9 +207,8 @@ texture = SubResource("AtlasTexture_jn2ok")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -1.9999999
-offset_right = -463.43213
-offset_bottom = -601.6825
+offset_right = -463.32858
+offset_bottom = -600.48145
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(28.971739, 16.270847)
@@ -215,7 +228,7 @@ offset_bottom = 7.65691
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.18347766, 0.30925906)
-theme_override_fonts/font = ExtResource("2_jw32o")
+theme_override_fonts/font = ExtResource("5_vy5pj")
 theme_override_font_sizes/font_size = 8
 text = "Game Over"
 horizontal_alignment = 1
@@ -258,6 +271,21 @@ theme_override_fonts/font = ExtResource("2_jw32o")
 theme_override_font_sizes/font_size = 41
 text = "Paused"
 horizontal_alignment = 1
+
+[node name="Pause_Button" type="TextureButton" parent="CanvasLayer" unique_id=417182915]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -75.0
+offset_top = 15.0
+offset_right = -15.0
+offset_bottom = 75.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+texture_normal = SubResource("AtlasTexture_vy5pj")
+texture_pressed = SubResource("AtlasTexture_bmxlf")
+texture_hover = SubResource("AtlasTexture_4kpch")
+stretch_mode = 1
 
 [node name="Enemy Timer" type="Timer" parent="." unique_id=1917302056]
 wait_time = 3.0
@@ -317,7 +345,7 @@ position = Vector2(14, 11)
 color = Color(0.32141063, 0.28948787, 0.27376977, 1)
 
 [node name="PointLight2D" type="PointLight2D" parent="ColorRect" unique_id=689563943]
-position = Vector2(254.00002, 505.875)
+position = Vector2(255.00002, 516)
 scale = Vector2(9.6428585, 19.717743)
 energy = 1.43
 blend_mode = 2
@@ -335,5 +363,6 @@ process_material = SubResource("ParticleProcessMaterial_vy5pj")
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Paper" to="." method="_on_paper_pressed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Rock" to="." method="_on_rock_pressed"]
 [connection signal="pressed" from="CanvasLayer/Game Over Screen/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause_Button" to="." method="_on_pause_button_pressed"]
 [connection signal="timeout" from="Enemy Timer" to="." method="_on_enemy_timer_timeout"]
 [connection signal="timeout" from="DifficultyTimer" to="." method="_on_difficulty_timer_timeout"]
