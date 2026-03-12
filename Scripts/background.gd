@@ -51,12 +51,13 @@ var synchronizer: AudioStreamSynchronized
 
 @export var enemy_speed := 150 
 @export var points_per_win: int = 100 
+@export var score_multiplier: int = 1
 @export var initial_enemy_speed := 800:
 	set(value):
 		initial_enemy_speed = clamp(value,600,900)
 @export var final_enemy_speed := 50:
 	set(value):
-		final_enemy_speed = clamp(value,50,200)
+		final_enemy_speed = clamp(value,50,400)
 @export var enemy_decceleration := 20 
 @export var enemy_spawn_rate := 3.0:
 	set(value):
@@ -135,13 +136,12 @@ func spawn_score_popup(text, position, color := Color.WHITE):
 	
 func spawn_clash_popup(text, color := Color.WHITE):
 	var label = Label.new()
-	label.text = text
-	label.add_theme_font_size_override("font_size", 30)
+	label.text = text + ' ' + str(score_multiplier) + 'x'
+	label.add_theme_font_size_override("font_size", 27)
 	label.modulate = color
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.global_position = h_box_container.global_position
 	label.position.y -= 100 
-	
 	
 
 	add_child(label)
@@ -170,6 +170,8 @@ func _ready():
 	synchronizer.set_sync_stream_volume(1, -60)
 	synchronizer.set_sync_stream_volume(2, -60)
 	synchronizer.set_sync_stream_volume(3, -60)
+	Engine.time_scale = 1.0
+	score_multiplier = 1
 
 func play_sound(stream: AudioStream):
 	if !sfx_player.playing:
@@ -287,7 +289,7 @@ func check_clash(player_shape):
 			enemy.is_clashed = true
 			player_shape.is_clashed = true
 			resolve_rps(player_shape.type_name, enemy.type_name, player_shape.global_position)
-			var shake_power = clamp(0.5 + combo * 0.1, 0.2, 0.6)
+			var shake_power = clamp(score_multiplier * 0.1, 0.2, 0.6)
 			shake_camera.add_trauma(shake_power)
 			var tween = create_tween()
 			tween.tween_property(Engine, "time_scale", 0.1, 0)
@@ -317,9 +319,14 @@ func resolve_rps(player_type, enemy_type, position: Vector2 = Vector2(-1,-1)):
 	if player_type == enemy_type:
 		if combo >= 30: 
 			play_sound(COMBO_DOWN)
-			slow_motion_effect(0.1,2)
+			slow_motion_effect(0.1,1)
+			final_enemy_speed -= 60
+			enemy_spawn_rate += 0.4
+			enemy_timer.wait_time = enemy_spawn_rate
+			initial_enemy_speed -= 60
 		print("Draw!")
 		combo = 0
+		score_multiplier = 1
 		play_sound(DRAW)
 		synchronizer.set_sync_stream_volume(1, -60)
 		synchronizer.set_sync_stream_volume(2, -60)
@@ -351,9 +358,6 @@ func resolve_rps(player_type, enemy_type, position: Vector2 = Vector2(-1,-1)):
 			add_child(particle)
 			
 		combo += 1
-		var gained_points = points_per_win * combo
-		player_score += gained_points
-		update_score_label()
 		
 		var hype = get_hype_word()
 		var popup_text = "%s x%d" % [hype, combo]
@@ -365,6 +369,7 @@ func resolve_rps(player_type, enemy_type, position: Vector2 = Vector2(-1,-1)):
 		if combo > 2:
 			spawn_score_popup(popup_text, position)
 		if combo == 10:
+			score_multiplier += 1
 			play_sound(CLASH)
 			play_sound(SUPER_CLASH)
 			var bgm_tween = create_tween()
@@ -378,6 +383,7 @@ func resolve_rps(player_type, enemy_type, position: Vector2 = Vector2(-1,-1)):
 			var tween = create_tween()
 			tween.tween_property(background, "color", Color("221a4a"), 0.2)
 		elif combo == 20:
+			score_multiplier += 1
 			play_sound(CLASH)
 			play_sound(MEGA_CLASH)
 			var bgm_tween = create_tween()
@@ -392,6 +398,7 @@ func resolve_rps(player_type, enemy_type, position: Vector2 = Vector2(-1,-1)):
 			var tween = create_tween()
 			tween.tween_property(background, "color", Color("6a2331"), 0.2)
 		elif combo % 30 == 0:
+			score_multiplier += 1
 			var bgm_tween = create_tween()
 			bgm_tween.tween_method(
 				func(volume): synchronizer.set_sync_stream_volume(3, 0),
@@ -410,7 +417,9 @@ func resolve_rps(player_type, enemy_type, position: Vector2 = Vector2(-1,-1)):
 		var shake_power = clamp(0.5 + combo * 0.1, 0.5, 2.0)
 		shake_camera.add_trauma(shake_power)
 		
-		
+		var gained_points = points_per_win * score_multiplier
+		player_score += gained_points
+		update_score_label()
 	else:
 		print("Player Loses!")
 		combo = 0
@@ -418,7 +427,7 @@ func resolve_rps(player_type, enemy_type, position: Vector2 = Vector2(-1,-1)):
 
 func _on_enemy_timer_timeout() -> void:
 	var chance = randf()
-	if chance <= 0.3:
+	if chance <= 0.3 and final_enemy_speed < 300:
 		var rand = randi() % 3
 		spawn_enemy_top(rand)
 		await get_tree().create_timer(0.1).timeout
