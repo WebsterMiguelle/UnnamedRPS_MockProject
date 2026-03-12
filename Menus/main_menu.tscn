@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://bv1etpv8opnuj"]
+
+[ext_resource type="Shader" uid="uid://ddugm2es3creb" path="res://Menus/main_menu_background_scroll.gdshader" id="1_p3jrs"]
+[ext_resource type="Script" uid="uid://s584ghmbc387" path="res://Menus/main_menu.gd" id="1_vxn86"]
+[ext_resource type="Texture2D" uid="uid://bile8wypcdiqv" path="res://ASSETS/RPS_Tile_BG_clear.png" id="2_at0u2"]
+[ext_resource type="Texture2D" uid="uid://c4o74bnu2fjry" path="res://ASSETS/long_buttons.png" id="4_cxdly"]
+[ext_resource type="Texture2D" uid="uid://d2cyg3lrafswy" path="res://ASSETS/Game_Title.png" id="4_vxn86"]
+[ext_resource type="FontFile" uid="uid://c0sti77qwkyg6" path="res://ASSETS/Early GameBoy.ttf" id="5_cxdly"]
+[ext_resource type="Script" uid="uid://buxx08kd2540b" path="res://Scripts/Game_Title.gd" id="5_gn11b"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1ehe0"]
+shader = ExtResource("1_p3jrs")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vxn86"]
+atlas = ExtResource("4_cxdly")
+region = Rect2(0, 0, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gn11b"]
+atlas = ExtResource("4_cxdly")
+region = Rect2(0, 32, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2k0p2"]
+atlas = ExtResource("4_cxdly")
+region = Rect2(0, 16, 48, 16)
+
+[node name="Main Menu" type="Control" unique_id=44081591]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vxn86")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=969986280]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.105882354, 0.1254902, 0.14901961, 1)
+
+[node name="Background Pattern" type="TextureRect" parent="." unique_id=781075823]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_1ehe0")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_at0u2")
+
+[node name="Label" type="TextureRect" parent="." unique_id=878765316]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -212.0
+offset_right = 200.0
+offset_bottom = 138.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_vxn86")
+script = ExtResource("5_gn11b")
+
+[node name="start_button" type="TextureButton" parent="." unique_id=2111863696]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.0
+offset_top = 128.0
+offset_right = 117.0
+offset_bottom = 212.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_vxn86")
+texture_pressed = SubResource("AtlasTexture_gn11b")
+texture_hover = SubResource("AtlasTexture_2k0p2")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="start_button" unique_id=1514711945]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -99.195
+offset_top = -19.5
+offset_right = 120.80499
+offset_bottom = 19.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_cxdly")
+theme_override_font_sizes/font_size = 31
+text = "START"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="button_up" from="start_button" to="." method="_on_start_button_button_up"]
