@@ -3,6 +3,7 @@ extends Node2D
 @onready var triangle_scene = preload("res://Scenes/triangle.tscn")
 @onready var square_scene = preload("res://Scenes/square.tscn")
 @onready var circle_scene = preload("res://Scenes/circle.tscn")
+const MAIN_MENU = preload("uid://bv1etpv8opnuj")
 
 @onready var game_over_screen = get_node("CanvasLayer/Game Over Screen")
 @onready var score_label = $CanvasLayer2/Score
@@ -15,6 +16,7 @@ extends Node2D
 @onready var draw_particles = preload("res://Scenes/draw_particles.tscn")
 @onready var h_box_container: HBoxContainer = $CanvasLayer/HBoxContainer
 @onready var pattern: TextureRect = $ColorRect/Pattern
+@onready var pause_button: TextureButton = $CanvasLayer/Pause_Button
 
 @onready var background: ColorRect = $ColorRect
 @onready var CLASH_particles: GPUParticles2D = $ColorRect/CLASH_particles
@@ -358,4 +360,21 @@ func _on_difficulty_timer_timeout() -> void:
 func _on_pause_button_pressed() -> void:
 	get_tree().paused = !get_tree().paused
 	pause_screen.visible = get_tree().paused
+	pause_button.visible = false
+
+
+func _unpause_button_pressed() -> void:
+	get_tree().paused = !get_tree().paused
+	pause_screen.visible = get_tree().paused
+	pause_button.visible = true
 	print("Paused" if get_tree().paused else "Resumed")
+
+
+func _retry_button_pressed() -> void:
+	get_tree().paused = false
+	get_tree().reload_current_scene()
+
+
+func _back_main_menu_button_pressed() -> void:
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://Menus/main_menu.tscn")
