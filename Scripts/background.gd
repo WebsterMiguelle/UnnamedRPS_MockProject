@@ -5,6 +5,7 @@ extends Node2D
 @onready var circle_scene = preload("res://Scenes/circle.tscn")
 const MAIN_MENU = preload("uid://bv1etpv8opnuj")
 
+	
 @onready var game_over_screen = get_node("CanvasLayer/Game Over Screen2")
 @onready var score_label = $CanvasLayer2/Score
 @onready var dark_overlay = $CanvasLayer/DarkOverlay
@@ -27,7 +28,7 @@ const MAIN_MENU = preload("uid://bv1etpv8opnuj")
 
 @onready var sfx_player: AudioStreamPlayer2D = $"SFX Player"
 var playback: AudioStreamPlaybackPolyphonic
-const BUTTON:AudioStream = preload("uid://dbfmq2oucugf7")
+const BUTTON = preload("uid://dbfmq2oucugf7")
 const CLASH = preload("uid://bx4sjsu5b86xu")
 const DRAW = preload("uid://7wchsd46l0mb")
 const LOSE_COUNTER = preload("uid://cjilfol4gvosx")
@@ -46,7 +47,6 @@ const COMBO_5 = preload("uid://d3appgpdq4f8w")
 const COMBO_6 = preload("uid://cj28v687j38g8")
 const COMBO_7 = preload("uid://sb8p46n1qxl0")
 const COMBO_DOWN = preload("uid://bgup1ufpobo7w")
-
 
 @onready var bgm_player: AudioStreamPlayer2D = $"BGM Player"
 var synchronizer: AudioStreamSynchronized
@@ -189,6 +189,7 @@ func _ready():
 	synchronizer.set_sync_stream_volume(3, -60)
 	Engine.time_scale = 1.0
 	score_multiplier = 1
+	
 
 func play_sound(stream: AudioStream):
 	if !sfx_player.playing:
@@ -389,9 +390,6 @@ func resolve_rps(player_type, enemy_type, position: Vector2 = Vector2(-1,-1)):
 		if combo > highest_combo:
 			highest_combo = combo
 			
-		var gained_points = points_per_win * combo
-		player_score += gained_points
-		update_score_label()
 		
 		var hype = get_hype_word()
 		var popup_text = "%s x%d" % [hype, combo]
@@ -448,7 +446,7 @@ func resolve_rps(player_type, enemy_type, position: Vector2 = Vector2(-1,-1)):
 			tween.tween_property(background, "color", Color("7d3300"), 0.2)
 			CLASH_particles.emitting = true
 		
-		var shake_power = clamp(0.5 + combo * 0.1, 0.5, 2.0)
+		var shake_power = clamp(score_multiplier * 0.1, 0.1, 0.5)
 		shake_camera.add_trauma(shake_power)
 		
 		var gained_points = points_per_win * score_multiplier
@@ -488,6 +486,8 @@ func format_time(seconds: float) -> String:
 	return "%02d:%02d" % [mins, secs]
 
 func _on_retry_pressed() -> void:
+	play_sound(BUTTON)
+	await get_tree().create_timer(0.2).timeout
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 
@@ -501,23 +501,33 @@ func _on_difficulty_timer_timeout() -> void:
 
 
 func _on_pause_button_pressed() -> void:
+	play_sound(BUTTON)
 	get_tree().paused = !get_tree().paused
 	pause_screen.visible = get_tree().paused
 	pause_button.visible = false
+	enemy_timer.paused = true
+	difficulty_timer.paused = true
 
 
 func _unpause_button_pressed() -> void:
+	play_sound(BUTTON)
 	get_tree().paused = !get_tree().paused
 	pause_screen.visible = get_tree().paused
 	pause_button.visible = true
 	print("Paused" if get_tree().paused else "Resumed")
+	enemy_timer.paused = false
+	difficulty_timer.paused = false
 
 
 func _retry_button_pressed() -> void:
+	play_sound(BUTTON)
+	await get_tree().create_timer(0.2).timeout
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 
 
 func _back_main_menu_button_pressed() -> void:
+	play_sound(BUTTON)
+	await get_tree().create_timer(0.2).timeout
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://Menus/main_menu.tscn")

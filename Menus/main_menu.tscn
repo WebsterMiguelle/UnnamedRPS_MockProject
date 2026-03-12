@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://d2cyg3lrafswy" path="res://ASSETS/Game_Title.png" id="4_vxn86"]
 [ext_resource type="FontFile" uid="uid://c0sti77qwkyg6" path="res://ASSETS/Early GameBoy.ttf" id="5_cxdly"]
 [ext_resource type="Script" uid="uid://buxx08kd2540b" path="res://Scripts/Game_Title.gd" id="5_gn11b"]
+[ext_resource type="AudioStream" uid="uid://curfdkjkacogm" path="res://ASSETS/BGM_SFX/Transition.wav" id="9_y501u"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1ehe0"]
 shader = ExtResource("1_p3jrs")
@@ -106,5 +107,8 @@ theme_override_font_sizes/font_size = 31
 text = "START"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Transition_SFX" type="AudioStreamPlayer2D" parent="." unique_id=629931256]
+stream = ExtResource("9_y501u")
 
 [connection signal="button_up" from="start_button" to="." method="_on_start_button_button_up"]
