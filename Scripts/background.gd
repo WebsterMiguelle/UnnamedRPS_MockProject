@@ -9,7 +9,6 @@ const MAIN_MENU = preload("uid://bv1etpv8opnuj")
 @onready var score_label = $CanvasLayer2/Score
 @onready var dark_overlay = $CanvasLayer/DarkOverlay
 @onready var pause_screen = $"CanvasLayer/Pause Screen"
-@onready var pause_button = $"CanvasLayer/Paused Button"
 
 
 @onready var timeLabel = $"CanvasLayer2/TimeLabel"
@@ -378,8 +377,8 @@ func _on_enemy_timer_timeout() -> void:
 func show_game_over():
 	game_over_screen.visible = true
 	
-	timeLabel.text = "Time: %s" % format_time(total_time)
-	comboLabel.text = "Highest Combo: %d" % highest_combo
+	timeLabel.text = str("Time: %s" % format_time(total_time))
+	comboLabel.text = str("Highest Combo: %d" % highest_combo)
 	
 	await get_tree().process_frame
 	get_tree().paused = true
