@@ -8,6 +8,11 @@ extends Node2D
 @onready var score_label = $CanvasLayer2/Score
 @onready var dark_overlay = $CanvasLayer/DarkOverlay
 @onready var pause_screen = $"CanvasLayer/Pause Screen"
+@onready var pause_button = $"CanvasLayer/Paused Button"
+
+
+@onready var timeLabel = $"CanvasLayer2/TimeLabel"
+@onready var comboLabel = $"CanvasLayer2/ComboLabel"
 
 @onready var enemy_timer: Timer = $"Enemy Timer"
 @onready var shake_camera: Camera2D = $ShakeCamera
@@ -54,9 +59,12 @@ var hype_words = [
 	"CLASH!"
 ]
 
+var is_paused: bool = false
 var time_score_rate := 5  # points per second
 var time_accumulator := 0.0
 var combo: int = 0
+var highest_combo: int = 0
+var total_time: float = 0.0  # 
 var player_score: int = 0
 var enemySpawnDelay: float = 2.0  # seconds between enemy spawns
 var enemy_spawn_timer: float = 0.0
@@ -123,7 +131,26 @@ func slow_motion_effect(target:float,duration:float):
 	tween.tween_property(Engine, "time_scale", target, 0)
 	tween.tween_property(Engine, "time_scale", 1, duration)
 	
+func toggle_pause():
+	is_paused = !is_paused
+	get_tree().paused = is_paused
+	pause_screen.visible = is_paused
+	
+	if get_tree().paused:
+		pause_button.text = "Resume"
+	else:
+		pause_button.text = "Paused"
+		
 func _ready():
+	
+	pause_screen.visible = false
+	pause_button.visible = true
+	
+	pause_screen.process_mode = Node.PROCESS_MODE_ALWAYS
+	pause_button.process_mode = Node.PROCESS_MODE_ALWAYS
+	game_over_screen.process_mode = Node.PROCESS_MODE_ALWAYS
+
+	
 	#var node = get_node('')
 	enemy_timer.wait_time = enemy_spawn_rate
 	enemy_headstart()
@@ -132,11 +159,18 @@ func _ready():
 	background.color = Color.BLACK
 	CLASH_particles.emitting = false
 	
+	if not pause_button.is_connected("pressed", Callable(self, "_on_paused_button_pressed")):
+		pause_button.connect("pressed", Callable(self, "_on_paused_button_pressed"))
+	
+	print(timeLabel)
+	print(comboLabel)
+	#timeLabel.add_theme_font_size_override("font_size", 20)
+	#comboLabel.add_theme_font_size_override("font_size", 20)
+	
+	
 func _input(event):
 	if event is InputEventKey and event.pressed and event.keycode == KEY_SPACE:
-		get_tree().paused = !get_tree().paused
-		pause_screen.visible = get_tree().paused
-		print("Paused" if get_tree().paused else "Resumed")
+		toggle_pause()
 		
 func update_score_label():
 	score_label.text = str(player_score)
@@ -175,6 +209,7 @@ func _process(delta):
 	if get_tree().paused:
 		return
 	time_accumulator += delta
+	total_time = time_accumulator
 	if time_accumulator >= 1.0:
 		var seconds_passed = int(time_accumulator)
 	
@@ -292,6 +327,9 @@ func resolve_rps(player_type, enemy_type, position: Vector2 = Vector2(-1,-1)):
 			add_child(particle)
 			
 		combo += 1
+		if combo > highest_combo:
+			highest_combo = combo
+			
 		var gained_points = points_per_win * combo
 		player_score += gained_points
 		update_score_label()
@@ -337,10 +375,17 @@ func _on_enemy_timer_timeout() -> void:
 		
 func show_game_over():
 	game_over_screen.visible = true
+	
+	timeLabel.text = "Time: %s" % format_time(total_time)
+	comboLabel.text = "Highest Combo: %d" % highest_combo
+	
 	await get_tree().process_frame
 	get_tree().paused = true
-		
-
+	
+func format_time(seconds: float) -> String:
+	var mins = int(seconds) / 60
+	var secs = int(seconds) % 60
+	return "%02d:%02d" % [mins, secs]
 
 func _on_retry_pressed() -> void:
 	get_tree().paused = false
@@ -353,3 +398,8 @@ func _on_difficulty_timer_timeout() -> void:
 	enemy_timer.wait_time = enemy_spawn_rate
 	initial_enemy_speed += 30
 	print('DIFFICULTY UP!')
+
+
+func _on_paused_button_pressed():
+		print("BUTTON CLICKED")
+		toggle_pause()
