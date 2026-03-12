@@ -5,11 +5,10 @@ extends Node2D
 @onready var circle_scene = preload("res://Scenes/circle.tscn")
 const MAIN_MENU = preload("uid://bv1etpv8opnuj")
 
-@onready var game_over_screen = get_node("CanvasLayer/Game Over Screen")
+@onready var game_over_screen = get_node("CanvasLayer/Game Over Screen2")
 @onready var score_label = $CanvasLayer2/Score
 @onready var dark_overlay = $CanvasLayer/DarkOverlay
 @onready var pause_screen = $"CanvasLayer/Pause Screen"
-
 
 @onready var timeLabel = $"CanvasLayer2/TimeLabel"
 @onready var comboLabel = $"CanvasLayer2/ComboLabel"
@@ -145,10 +144,10 @@ func toggle_pause():
 func _ready():
 	
 	pause_screen.visible = false
-	pause_button.visible = true
+	#pause_button.visible = true
 	
 	pause_screen.process_mode = Node.PROCESS_MODE_ALWAYS
-	pause_button.process_mode = Node.PROCESS_MODE_ALWAYS
+	#pause_button.process_mode = Node.PROCESS_MODE_ALWAYS
 	game_over_screen.process_mode = Node.PROCESS_MODE_ALWAYS
 
 	
@@ -160,8 +159,8 @@ func _ready():
 	background.color = Color.BLACK
 	CLASH_particles.emitting = false
 	
-	if not pause_button.is_connected("pressed", Callable(self, "_on_paused_button_pressed")):
-		pause_button.connect("pressed", Callable(self, "_on_paused_button_pressed"))
+#	if not pause_button.is_connected("pressed", Callable(self, "_on_paused_button_pressed")):
+	#	pause_button.connect("pressed", Callable(self, "_on_paused_button_pressed"))
 	
 	print(timeLabel)
 	print(comboLabel)

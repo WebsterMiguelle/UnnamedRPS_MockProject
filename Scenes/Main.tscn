@@ -1,27 +1,15 @@
-[gd_scene format=3 uid="uid://bnqbrrj0fwso0"]
+[gd_scene format=3 uid="uid://bd1sr2nofh4ip"]
 
 [ext_resource type="Script" uid="uid://dm4ama6yvehdp" path="res://Scripts/background.gd" id="1_pojwb"]
 [ext_resource type="FontFile" uid="uid://c0sti77qwkyg6" path="res://ASSETS/Early GameBoy.ttf" id="2_jw32o"]
 [ext_resource type="Texture2D" uid="uid://4outa15memkd" path="res://ASSETS/Buttons.png" id="3_4aqey"]
 [ext_resource type="Texture2D" uid="uid://bpqid0b3j45nr" path="res://ASSETS/Icons.png" id="4_xgxeb"]
 [ext_resource type="Texture2D" uid="uid://cyrdkllswramp" path="res://ASSETS/Pause-Buttons.png" id="5_50glp"]
-[ext_resource type="Script" path="res://Scripts/camera_shake.gd" id="5_jw32o"]
+[ext_resource type="Script" path="res://Scenes/shake_camera.gd" id="5_ltlj5"]
 [ext_resource type="FontFile" uid="uid://blyom1ht1bg7t" path="res://ASSETS/Pixel Game.otf" id="5_vy5pj"]
 [ext_resource type="Shader" path="res://Scenes/Gameplay_Background_Scroll.gdshader" id="6_jw32o"]
 [ext_resource type="Texture2D" uid="uid://bile8wypcdiqv" path="res://ASSETS/RPS_Tile_BG_clear.png" id="7_50glp"]
 [ext_resource type="Texture2D" uid="uid://c4o74bnu2fjry" path="res://ASSETS/long_buttons.png" id="7_bmxlf"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vy5pj"]
-atlas = ExtResource("5_50glp")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bmxlf"]
-atlas = ExtResource("5_50glp")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4kpch"]
-atlas = ExtResource("5_50glp")
-region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xgxeb"]
 atlas = ExtResource("3_4aqey")
@@ -71,39 +59,75 @@ region = Rect2(0, 16, 16, 16)
 atlas = ExtResource("4_xgxeb")
 region = Rect2(0, 0, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_4kpch"]
+atlas = ExtResource("7_bmxlf")
+region = Rect2(0, 0, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1p5hy"]
+atlas = ExtResource("7_bmxlf")
+region = Rect2(0, 32, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1m7h"]
+atlas = ExtResource("7_bmxlf")
+region = Rect2(0, 16, 48, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_grg3l"]
 atlas = ExtResource("7_bmxlf")
 region = Rect2(0, 0, 48, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_frkhe"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_erwvk"]
 atlas = ExtResource("7_bmxlf")
 region = Rect2(0, 32, 48, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1p5hy"]
-atlas = ExtResource("7_bmxlf")
-region = Rect2(0, 16, 48, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_h1m7h"]
-atlas = ExtResource("7_bmxlf")
-region = Rect2(0, 0, 48, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2w5on"]
 atlas = ExtResource("7_bmxlf")
-region = Rect2(0, 32, 48, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_346fj"]
-atlas = ExtResource("7_bmxlf")
 region = Rect2(0, 16, 48, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_erwvk"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_frkhe"]
 atlas = ExtResource("7_bmxlf")
 region = Rect2(0, 0, 48, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0sclb"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_346fj"]
 atlas = ExtResource("7_bmxlf")
 region = Rect2(0, 32, 48, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_0sclb"]
+atlas = ExtResource("7_bmxlf")
+region = Rect2(0, 16, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_50glp"]
+atlas = ExtResource("5_50glp")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vy5pj"]
+atlas = ExtResource("5_50glp")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bmxlf"]
+atlas = ExtResource("5_50glp")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jyqft"]
+atlas = ExtResource("7_bmxlf")
+region = Rect2(0, 0, 48, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_sxkr1"]
+atlas = ExtResource("7_bmxlf")
+region = Rect2(0, 32, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fq0cl"]
+atlas = ExtResource("7_bmxlf")
+region = Rect2(0, 16, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hwpts"]
+atlas = ExtResource("7_bmxlf")
+region = Rect2(0, 0, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3tgeq"]
+atlas = ExtResource("7_bmxlf")
+region = Rect2(0, 32, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4ay3"]
 atlas = ExtResource("7_bmxlf")
 region = Rect2(0, 16, 48, 16)
 
@@ -156,47 +180,6 @@ script = ExtResource("1_pojwb")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=938028321]
 
-[node name="DarkOverlay" type="ColorRect" parent="CanvasLayer" unique_id=1454542722]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
-
-[node name="Time Freenzy" type="Label" parent="CanvasLayer" unique_id=74249725]
-visible = false
-self_modulate = Color(0, 0, 0, 1)
-light_mask = 7
-visibility_layer = 127
-offset_left = 8.0
-offset_top = 25.0
-offset_right = 227.0
-offset_bottom = 67.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_jw32o")
-theme_override_font_sizes/font_size = 13
-text = "Time: 30:00 sec"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Pause_Button" type="TextureButton" parent="CanvasLayer" unique_id=417182915]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -75.0
-offset_top = 15.0
-offset_right = -15.0
-offset_bottom = 75.0
-grow_horizontal = 0
-size_flags_horizontal = 8
-texture_normal = SubResource("AtlasTexture_vy5pj")
-texture_pressed = SubResource("AtlasTexture_bmxlf")
-texture_hover = SubResource("AtlasTexture_4kpch")
-stretch_mode = 1
-
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=50806588]
 custom_minimum_size = Vector2(60, 60)
 anchors_preset = -1
@@ -212,7 +195,7 @@ grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 8.98
-theme_override_constants/separation = 60
+theme_override_constants/separation = 20
 alignment = 1
 
 [node name="Scissors" type="TextureButton" parent="CanvasLayer/HBoxContainer" unique_id=1659871019]
@@ -256,50 +239,6 @@ position = Vector2(29.999998, 30.999998)
 scale = Vector2(2.75, 2.75)
 texture = SubResource("AtlasTexture_jn2ok")
 
-[node name="Game Over Screen" type="ColorRect" parent="CanvasLayer" unique_id=157600104]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -463.32858
-offset_bottom = -600.48145
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(28.971739, 16.270847)
-
-[node name="Game Over" type="Label" parent="CanvasLayer/Game Over Screen" unique_id=827447277]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -10.907182
-offset_top = -6.5761786
-offset_right = 113.254135
-offset_bottom = 7.872032
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.18347766, 0.30925906)
-theme_override_fonts/font = ExtResource("5_vy5pj")
-theme_override_font_sizes/font_size = 8
-text = "Game Over"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Retry" type="Button" parent="CanvasLayer/Game Over Screen" unique_id=1451430581]
-layout_mode = 0
-offset_left = 5.0394135
-offset_top = 26.304749
-offset_right = 108.90984
-offset_bottom = 59.94317
-scale = Vector2(0.06084256, 0.071649514)
-theme_override_colors/font_color = Color(1, 1, 0.36862746, 1)
-theme_override_fonts/font = ExtResource("2_jw32o")
-theme_override_font_sizes/font_size = 11
-text = "RETRY"
-icon_alignment = 1
-
 [node name="Pause Screen" type="ColorRect" parent="CanvasLayer" unique_id=1065463818]
 process_mode = 2
 anchors_preset = 15
@@ -312,29 +251,34 @@ color = Color(0, 0, 0, 0.5019608)
 
 [node name="Paused" type="Label" parent="CanvasLayer/Pause Screen" unique_id=2093402619]
 process_mode = 1
-layout_mode = 0
-offset_top = 116.0
-offset_right = 480.0
-offset_bottom = 168.0
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -176.0
+offset_bottom = -75.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0.18431373, 0.28235295, 0.36078432, 1)
+theme_override_constants/outline_size = 21
 theme_override_fonts/font = ExtResource("5_vy5pj")
-theme_override_font_sizes/font_size = 142
+theme_override_font_sizes/font_size = 161
 text = "Paused"
 horizontal_alignment = 1
 
-[node name="UnpauseButton" type="TextureButton" parent="CanvasLayer/Pause Screen" unique_id=1254932214]
+[node name="unpause_button" type="TextureButton" parent="CanvasLayer/Pause Screen" unique_id=360881624]
 layout_mode = 0
 offset_left = 112.0
-offset_top = 216.0
+offset_top = 280.0
 offset_right = 368.0
-offset_bottom = 291.0
-texture_normal = SubResource("AtlasTexture_grg3l")
-texture_pressed = SubResource("AtlasTexture_frkhe")
-texture_hover = SubResource("AtlasTexture_1p5hy")
-stretch_mode = 0
+offset_bottom = 364.0
+texture_normal = SubResource("AtlasTexture_4kpch")
+texture_pressed = SubResource("AtlasTexture_1p5hy")
+texture_hover = SubResource("AtlasTexture_h1m7h")
+stretch_mode = 1
 
-[node name="_Continue_" type="Label" parent="CanvasLayer/Pause Screen/UnpauseButton" unique_id=864641772]
+[node name="Label" type="Label" parent="CanvasLayer/Pause Screen/unpause_button" unique_id=1758566269]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -342,23 +286,24 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_jw32o")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 23
 text = "Continue"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Retry" type="TextureButton" parent="CanvasLayer/Pause Screen" unique_id=834709211]
+[node name="retry_button" type="TextureButton" parent="CanvasLayer/Pause Screen" unique_id=1114089170]
 layout_mode = 0
 offset_left = 112.0
-offset_top = 312.0
+offset_top = 380.0
 offset_right = 368.0
-offset_bottom = 387.0
-texture_normal = SubResource("AtlasTexture_h1m7h")
-texture_pressed = SubResource("AtlasTexture_2w5on")
-texture_hover = SubResource("AtlasTexture_346fj")
-stretch_mode = 0
+offset_bottom = 464.0
+texture_normal = SubResource("AtlasTexture_grg3l")
+texture_pressed = SubResource("AtlasTexture_erwvk")
+texture_hover = SubResource("AtlasTexture_2w5on")
+ignore_texture_size = true
+stretch_mode = 1
 
-[node name="Label" type="Label" parent="CanvasLayer/Pause Screen/Retry" unique_id=2089619423]
+[node name="Label" type="Label" parent="CanvasLayer/Pause Screen/retry_button" unique_id=1040973119]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -366,23 +311,24 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_jw32o")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 23
 text = "Retry"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BackToMainMenu" type="TextureButton" parent="CanvasLayer/Pause Screen" unique_id=880328262]
+[node name="back_button" type="TextureButton" parent="CanvasLayer/Pause Screen" unique_id=135836906]
 layout_mode = 0
 offset_left = 112.0
-offset_top = 408.0
+offset_top = 480.0
 offset_right = 368.0
-offset_bottom = 483.0
-texture_normal = SubResource("AtlasTexture_erwvk")
-texture_pressed = SubResource("AtlasTexture_0sclb")
-texture_hover = SubResource("AtlasTexture_sxkr1")
+offset_bottom = 564.0
+texture_normal = SubResource("AtlasTexture_frkhe")
+texture_pressed = SubResource("AtlasTexture_346fj")
+texture_hover = SubResource("AtlasTexture_0sclb")
+ignore_texture_size = true
 stretch_mode = 1
 
-[node name="Label" type="Label" parent="CanvasLayer/Pause Screen/BackToMainMenu" unique_id=241680170]
+[node name="Label" type="Label" parent="CanvasLayer/Pause Screen/back_button" unique_id=1185378156]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -390,15 +336,171 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_jw32o")
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 20
 text = "Back to
 Main Menu"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Pause_Button" type="TextureButton" parent="CanvasLayer" unique_id=1908211074]
+offset_left = 400.0
+offset_top = 24.0
+offset_right = 440.0
+offset_bottom = 64.0
+scale = Vector2(1.5, 1.5)
+texture_normal = SubResource("AtlasTexture_50glp")
+texture_pressed = SubResource("AtlasTexture_vy5pj")
+texture_hover = SubResource("AtlasTexture_bmxlf")
+ignore_texture_size = true
+stretch_mode = 1
+
+[node name="Game Over Screen2" type="ColorRect" parent="CanvasLayer" unique_id=418766939]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5019608)
+
+[node name="Retry" type="TextureButton" parent="CanvasLayer/Game Over Screen2" unique_id=1576821302]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -113.0
+offset_top = 60.0
+offset_right = 117.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_jyqft")
+texture_pressed = SubResource("AtlasTexture_sxkr1")
+texture_hover = SubResource("AtlasTexture_fq0cl")
+stretch_mode = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/Game Over Screen2/Retry" unique_id=851839234]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_jw32o")
+theme_override_font_sizes/font_size = 20
+text = "Retry"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackButton" type="TextureButton" parent="CanvasLayer/Game Over Screen2" unique_id=1174640202]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -115.0
+offset_top = 140.0
+offset_right = 115.0
+offset_bottom = 205.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_hwpts")
+texture_pressed = SubResource("AtlasTexture_3tgeq")
+texture_hover = SubResource("AtlasTexture_c4ay3")
+ignore_texture_size = true
+stretch_mode = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/Game Over Screen2/BackButton" unique_id=1756087277]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/line_spacing = -6
+theme_override_fonts/font = ExtResource("2_jw32o")
+text = "Back to Main Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/Game Over Screen2" unique_id=1356953333]
+layout_mode = 0
+offset_top = 61.0
+offset_right = 480.0
+offset_bottom = 221.0
+theme_override_colors/font_outline_color = Color(0.18431373, 0.28235295, 0.36078432, 1)
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("5_vy5pj")
+theme_override_font_sizes/font_size = 100
+text = "YOU LOST!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
 [node name="Enemy Timer" type="Timer" parent="." unique_id=1917302056]
 wait_time = 3.0
 autostart = true
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=1081792358]
+
+[node name="ComboLabel" type="Label" parent="CanvasLayer2" unique_id=337595047]
+visibility_layer = 1023
+custom_minimum_size = Vector2(60, 20)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -128.0
+offset_bottom = -103.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+theme_override_fonts/font = ExtResource("2_jw32o")
+theme_override_font_sizes/font_size = 9
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="TimeLabel" type="Label" parent="CanvasLayer2" unique_id=349852977]
+visibility_layer = 1023
+clip_contents = true
+custom_minimum_size = Vector2(60, 20)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.999985
+offset_top = -69.999985
+offset_right = 44.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.9, 0.9)
+theme_override_font_sizes/font_size = 25
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Score" type="Label" parent="CanvasLayer2" unique_id=1307053088]
+custom_minimum_size = Vector2(60, 20)
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 90.26
+offset_top = 60.0
+offset_right = -127.81
+offset_bottom = 92.0
+grow_horizontal = 2
+scale = Vector2(1.1427871, 1.5620707)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_jw32o")
+theme_override_font_sizes/font_size = 20
+text = "0"
+horizontal_alignment = 1
 
 [node name="DifficultyTimer" type="Timer" parent="." unique_id=602760788]
 wait_time = 10.0
@@ -406,7 +508,7 @@ autostart = true
 
 [node name="ShakeCamera" type="Camera2D" parent="." unique_id=706726377]
 position = Vector2(241, 322)
-script = ExtResource("5_jw32o")
+script = ExtResource("5_ltlj5")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1359677457]
 offset_left = -14.0
@@ -436,7 +538,7 @@ position = Vector2(14, 11)
 color = Color(0.32141063, 0.28948787, 0.27376977, 1)
 
 [node name="PointLight2D" type="PointLight2D" parent="ColorRect" unique_id=689563943]
-position = Vector2(255.00002, 516)
+position = Vector2(254.00002, 505.875)
 scale = Vector2(9.6428585, 19.717743)
 energy = 1.43
 blend_mode = 2
@@ -450,31 +552,40 @@ lifetime = 3.83
 randomness = 0.57
 process_material = SubResource("ParticleProcessMaterial_vy5pj")
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=1081792358]
-
-[node name="Score" type="Label" parent="CanvasLayer2" unique_id=1307053088]
-custom_minimum_size = Vector2(60, 20)
-anchors_preset = 10
+[node name="DarkOverlay" type="ColorRect" parent="." unique_id=1454542722]
+anchors_preset = 15
 anchor_right = 1.0
-offset_left = 90.26
-offset_top = 60.0
-offset_right = -127.81
-offset_bottom = 92.0
+anchor_bottom = 1.0
 grow_horizontal = 2
-scale = Vector2(1.1427871, 1.5620707)
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Time Freenzy" type="Label" parent="." unique_id=74249725]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+light_mask = 7
+visibility_layer = 127
+offset_left = 8.0
+offset_top = 25.0
+offset_right = 227.0
+offset_bottom = 67.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_jw32o")
-theme_override_font_sizes/font_size = 20
-text = "0"
+theme_override_font_sizes/font_size = 13
+text = "Time: 30:00 sec"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[connection signal="pressed" from="CanvasLayer/Pause_Button" to="." method="_on_pause_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Scissors" to="." method="_on_scissors_pressed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Paper" to="." method="_on_paper_pressed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Rock" to="." method="_on_rock_pressed"]
-[connection signal="pressed" from="CanvasLayer/Game Over Screen/Retry" to="." method="_on_retry_pressed"]
-[connection signal="pressed" from="CanvasLayer/Pause Screen/UnpauseButton" to="." method="_unpause_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Pause Screen/Retry" to="." method="_retry_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Pause Screen/BackToMainMenu" to="." method="_back_main_menu_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause Screen/unpause_button" to="." method="_on_unpause_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause Screen/unpause_button" to="." method="_unpause_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause Screen/retry_button" to="." method="_retry_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause Screen/back_button" to="." method="_back_main_menu_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause_Button" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Game Over Screen2/Retry" to="." method="_retry_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Game Over Screen2/BackButton" to="." method="_back_main_menu_button_pressed"]
 [connection signal="timeout" from="Enemy Timer" to="." method="_on_enemy_timer_timeout"]
 [connection signal="timeout" from="DifficultyTimer" to="." method="_on_difficulty_timer_timeout"]
