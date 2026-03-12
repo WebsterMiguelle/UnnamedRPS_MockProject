@@ -571,6 +571,7 @@ texture = SubResource("GradientTexture2D_jw32o")
 [node name="CLASH_particles" type="GPUParticles2D" parent="ColorRect" unique_id=1413266556]
 position = Vector2(243.565, 684.895)
 rotation = 7.819075
+emitting = false
 amount = 50
 lifetime = 3.83
 randomness = 0.57
@@ -613,8 +614,8 @@ autoplay = true
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Scissors" to="." method="_on_scissors_pressed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Paper" to="." method="_on_paper_pressed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Rock" to="." method="_on_rock_pressed"]
-[connection signal="pressed" from="CanvasLayer/Pause Screen/unpause_button" to="." method="_unpause_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause Screen/unpause_button" to="." method="_on_unpause_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause Screen/unpause_button" to="." method="_unpause_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause Screen/retry_button" to="." method="_retry_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause Screen/back_button" to="." method="_back_main_menu_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause_Button" to="." method="_on_pause_button_pressed"]

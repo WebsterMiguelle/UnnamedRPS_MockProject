@@ -197,15 +197,6 @@ func play_sound(stream: AudioStream):
 		playback = sfx_player.get_stream_playback()
 
 	playback.play_stream(stream)
-
-func _input(event):
-	if event is InputEventKey and event.pressed and event.keycode == KEY_SPACE:
-		get_tree().paused = !get_tree().paused
-		pause_screen.visible = get_tree().paused
-		enemy_timer.paused = !enemy_timer.paused
-		difficulty_timer.paused = !difficulty_timer.paused
-		print("Paused" if get_tree().paused else "Resumed")
-
 	
 #	if not pause_button.is_connected("pressed", Callable(self, "_on_paused_button_pressed")):
 	#	pause_button.connect("pressed", Callable(self, "_on_paused_button_pressed"))
