@@ -8,7 +8,13 @@
 [ext_resource type="Script" path="res://Scenes/shake_camera.gd" id="5_ltlj5"]
 [ext_resource type="FontFile" uid="uid://blyom1ht1bg7t" path="res://ASSETS/Pixel Game.otf" id="5_vy5pj"]
 [ext_resource type="Shader" path="res://Scenes/Gameplay_Background_Scroll.gdshader" id="6_jw32o"]
+[ext_resource type="Script" uid="uid://bl5qa7n8mmpb6" path="res://Scenes/shake_camera.gd" id="5_ltlj5"]
+[ext_resource type="Shader" uid="uid://mdxx2xm26xss" path="res://Scenes/Gameplay_Background_Scroll.gdshader" id="6_jw32o"]
 [ext_resource type="Texture2D" uid="uid://bile8wypcdiqv" path="res://ASSETS/RPS_Tile_BG_clear.png" id="7_50glp"]
+[ext_resource type="AudioStream" uid="uid://ct8whm0pxally" path="res://ASSETS/BGM_SFX/Let's Clash (No Clash).wav" id="8_4kpch"]
+[ext_resource type="AudioStream" uid="uid://d1b26pyo6pp13" path="res://ASSETS/BGM_SFX/Let's Clash (Super Clash).wav" id="9_grg3l"]
+[ext_resource type="AudioStream" uid="uid://c860xohxto6k6" path="res://ASSETS/BGM_SFX/Let's Clash (Mega Clash).wav" id="10_frkhe"]
+[ext_resource type="AudioStream" uid="uid://b4t75rascjyku" path="res://ASSETS/BGM_SFX/Let's Clash (RPS CLash).wav" id="11_1p5hy"]
 [ext_resource type="Texture2D" uid="uid://c4o74bnu2fjry" path="res://ASSETS/long_buttons.png" id="7_bmxlf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xgxeb"]
@@ -173,6 +179,20 @@ gravity = Vector3(0, 0, 0)
 scale_min = 0.0
 scale_max = 5.0
 color = Color(1, 0.6745098, 0, 1)
+
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_jw32o"]
+polyphony = 16
+
+[sub_resource type="AudioStreamSynchronized" id="AudioStreamSynchronized_h1m7h"]
+stream_count = 4
+stream_0/stream = ExtResource("8_4kpch")
+stream_0/volume = 0.0
+stream_1/stream = ExtResource("9_grg3l")
+stream_1/volume = -60.0
+stream_2/stream = ExtResource("10_frkhe")
+stream_2/volume = -60.0
+stream_3/stream = ExtResource("11_1p5hy")
+stream_3/volume = -60.0
 
 [node name="Main" type="Node2D" unique_id=76817665]
 process_mode = 3
@@ -355,6 +375,7 @@ texture_hover = SubResource("AtlasTexture_bmxlf")
 ignore_texture_size = true
 stretch_mode = 1
 
+[node name="Pause Screen" type="ColorRect" parent="CanvasLayer" unique_id=1065463818]
 [node name="Game Over Screen2" type="ColorRect" parent="CanvasLayer" unique_id=418766939]
 visible = false
 anchors_preset = 15
@@ -364,6 +385,8 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.5019608)
 
+[node name="Paused" type="Label" parent="CanvasLayer/Pause Screen" unique_id=2093402619]
+process_mode = 1
 [node name="Retry" type="TextureButton" parent="CanvasLayer/Game Over Screen2" unique_id=1576821302]
 layout_mode = 1
 anchors_preset = 8
@@ -549,7 +572,7 @@ texture = SubResource("GradientTexture2D_jw32o")
 [node name="CLASH_particles" type="GPUParticles2D" parent="ColorRect" unique_id=1413266556]
 position = Vector2(243.565, 684.895)
 rotation = 7.819075
-amount = 30
+amount = 50
 lifetime = 3.83
 randomness = 0.57
 process_material = SubResource("ParticleProcessMaterial_vy5pj")
@@ -578,6 +601,15 @@ theme_override_font_sizes/font_size = 13
 text = "Time: 30:00 sec"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="SFX Player" type="AudioStreamPlayer2D" parent="." unique_id=1358885339]
+stream = SubResource("AudioStreamPolyphonic_jw32o")
+autoplay = true
+
+[node name="BGM Player" type="AudioStreamPlayer2D" parent="." unique_id=660192274]
+stream = SubResource("AudioStreamSynchronized_h1m7h")
+volume_db = -1.759
+autoplay = true
 
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Scissors" to="." method="_on_scissors_pressed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Paper" to="." method="_on_paper_pressed"]
