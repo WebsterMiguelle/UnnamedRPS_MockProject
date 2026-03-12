@@ -3,9 +3,10 @@
 [ext_resource type="Shader" uid="uid://ddugm2es3creb" path="res://Menus/main_menu_background_scroll.gdshader" id="1_p3jrs"]
 [ext_resource type="Script" uid="uid://s584ghmbc387" path="res://Menus/main_menu.gd" id="1_vxn86"]
 [ext_resource type="Texture2D" uid="uid://bile8wypcdiqv" path="res://ASSETS/RPS_Tile_BG_clear.png" id="2_at0u2"]
-[ext_resource type="FontFile" uid="uid://blyom1ht1bg7t" path="res://ASSETS/Pixel Game.otf" id="3_11gta"]
 [ext_resource type="Texture2D" uid="uid://c4o74bnu2fjry" path="res://ASSETS/long_buttons.png" id="4_cxdly"]
+[ext_resource type="Texture2D" uid="uid://d2cyg3lrafswy" path="res://ASSETS/Game_Title.png" id="4_vxn86"]
 [ext_resource type="FontFile" uid="uid://c0sti77qwkyg6" path="res://ASSETS/Early GameBoy.ttf" id="5_cxdly"]
+[ext_resource type="Script" uid="uid://buxx08kd2540b" path="res://Scripts/Game_Title.gd" id="5_gn11b"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1ehe0"]
 shader = ExtResource("1_p3jrs")
@@ -53,53 +54,33 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_at0u2")
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1911080626]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 12
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=2097776719]
-layout_mode = 2
-theme_override_constants/separation = -18
-
-[node name="Separator" type="Control" parent="MarginContainer/VBoxContainer" unique_id=1434435198]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1012018237]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.9607843, 0.6627451, 0.35686275, 1)
-theme_override_colors/font_shadow_color = Color(0.78431374, 0.49019608, 0.2509804, 1)
-theme_override_constants/line_spacing = -53
-theme_override_constants/shadow_offset_x = 11
-theme_override_constants/shadow_offset_y = 8
-theme_override_fonts/font = ExtResource("3_11gta")
-theme_override_font_sizes/font_size = 187
-text = "RPS 
-CLASH"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Separator2" type="Control" parent="MarginContainer/VBoxContainer" unique_id=1269196941]
-layout_mode = 2
-
-[node name="start_button" type="TextureButton" parent="MarginContainer/VBoxContainer/Separator2" unique_id=2111863696]
+[node name="Label" type="TextureRect" parent="." unique_id=878765316]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -126.5
-offset_top = 53.0
-offset_right = 126.5
-offset_bottom = 137.0
+offset_left = -200.0
+offset_top = -212.0
+offset_right = 200.0
+offset_bottom = 138.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_vxn86")
+script = ExtResource("5_gn11b")
+
+[node name="start_button" type="TextureButton" parent="." unique_id=2111863696]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.0
+offset_top = 128.0
+offset_right = 117.0
+offset_bottom = 212.0
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = SubResource("AtlasTexture_vxn86")
@@ -107,7 +88,7 @@ texture_pressed = SubResource("AtlasTexture_gn11b")
 texture_hover = SubResource("AtlasTexture_2k0p2")
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Separator2/start_button" unique_id=1514711945]
+[node name="Label" type="Label" parent="start_button" unique_id=1514711945]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -126,4 +107,4 @@ text = "START"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="button_up" from="MarginContainer/VBoxContainer/Separator2/start_button" to="." method="_on_start_button_button_up"]
+[connection signal="button_up" from="start_button" to="." method="_on_start_button_button_up"]

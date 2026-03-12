@@ -1,6 +1,6 @@
 extends Control
 
-@onready var start_button: TextureButton = $MarginContainer/VBoxContainer/Separator2/start_button
+@onready var start_button: TextureButton = $start_button
 @onready var start_game = preload("res://Scenes/Main.tscn")
 
 func _ready() -> void:
