@@ -19,8 +19,26 @@ extends Node2D
 @onready var background: ColorRect = $ColorRect
 @onready var CLASH_particles: GPUParticles2D = $ColorRect/CLASH_particles
 
+@onready var sfx_player: AudioStreamPlayer2D = $"SFX Player"
+var playback: AudioStreamPlaybackPolyphonic
+const BUTTON:AudioStream = preload("uid://dbfmq2oucugf7")
+const CLASH = preload("uid://bx4sjsu5b86xu")
+const COMBO = preload("uid://cm6qjmtcwnrj6")
+const DRAW = preload("uid://7wchsd46l0mb")
+const LOSE_COUNTER = preload("uid://cjilfol4gvosx")
+const PAPER_COUNTER = preload("uid://djlyvcjvdvl7b")
+const ROCK_COUNTER = preload("uid://cm3paivwl2rrm")
+const SCISSOR_COUNTER = preload("uid://c875dj5f4v8pp")
+const CLASH_CHEER = preload("uid://deyrr25vfblh7")
+const SUPER_CLASH = preload("uid://cnotsb71flbsn")
+const MEGA_CLASH = preload("uid://d24fw1joefwbj")
+const RPS_CLASH = preload("uid://dc7l11blghllo")
+
+@onready var bgm_player: AudioStreamPlayer2D = $"BGM Player"
+
+
 @export var player_speed := 300  
-@export var player_acceleration := 20
+@export var player_acceleration := 200
 
 @export var enemy_speed := 150 
 @export var points_per_win: int = 100 
@@ -33,7 +51,7 @@ extends Node2D
 @export var enemy_decceleration := 20 
 @export var enemy_spawn_rate := 3.0:
 	set(value):
-		enemy_spawn_rate = clamp(value,1.0,3.0)
+		enemy_spawn_rate = clamp(value,0.6,3.0)
 		
 var draw_words = [
 	"Draw!",
@@ -131,26 +149,38 @@ func _ready():
 	game_over_screen.visible = false
 	background.color = Color.BLACK
 	CLASH_particles.emitting = false
-	
+	playback = sfx_player.get_stream_playback()
+
+func play_sound(stream: AudioStream):
+	if !sfx_player.playing:
+		sfx_player.play()
+		playback = sfx_player.get_stream_playback()
+
+	playback.play_stream(stream)
+
 func _input(event):
 	if event is InputEventKey and event.pressed and event.keycode == KEY_SPACE:
 		get_tree().paused = !get_tree().paused
 		pause_screen.visible = get_tree().paused
 		print("Paused" if get_tree().paused else "Resumed")
-		
+
 func update_score_label():
 	score_label.text = str(player_score)
 
 func _on_scissors_pressed():
+	play_sound(BUTTON)
 	print("Spawning Triangle")
 	spawn_shape(triangle_scene, $"CanvasLayer/HBoxContainer/Scissors")
 
 func _on_paper_pressed():
 	print("Spawning Paper")
+	play_sound(BUTTON)
 	spawn_shape(square_scene, $"CanvasLayer/HBoxContainer/Paper")
 
 func _on_rock_pressed():
 	print("Spawning Rock")
+	play_sound(BUTTON)
+	print(sfx_player.playing)
 	spawn_shape(circle_scene, $"CanvasLayer/HBoxContainer/Rock")
 
 func spawn_shape(shape_scene, button_node):
@@ -265,6 +295,7 @@ func resolve_rps(player_type, enemy_type, position: Vector2 = Vector2(-1,-1)):
 	if player_type == enemy_type:
 		print("Draw!")
 		combo = 0
+		play_sound(DRAW)
 		var tween = create_tween()
 		tween.tween_property(background, "color", Color.BLACK, 0.2)
 		CLASH_particles.emitting = false
@@ -299,17 +330,29 @@ func resolve_rps(player_type, enemy_type, position: Vector2 = Vector2(-1,-1)):
 		var hype = get_hype_word()
 		var popup_text = "%s x%d" % [hype, combo]
 		
+		if(player_type == "Triangle"): play_sound(SCISSOR_COUNTER)
+		if(player_type == "Square"): play_sound(PAPER_COUNTER)
+		if(player_type == "Circle"): play_sound(ROCK_COUNTER)
+		
 		if combo > 2:
+			play_sound(COMBO)
 			spawn_score_popup(popup_text, position)
 		if combo == 10:
+			play_sound(CLASH)
+			play_sound(SUPER_CLASH)
 			spawn_clash_popup("SUPER CLASH!",Color.SKY_BLUE)
 			var tween = create_tween()
 			tween.tween_property(background, "color", Color("221a4a"), 0.2)
 		elif combo == 20:
+			play_sound(CLASH)
+			play_sound(MEGA_CLASH)
 			spawn_clash_popup("MEGA CLASH!", Color.HOT_PINK)
 			var tween = create_tween()
 			tween.tween_property(background, "color", Color("6a2331"), 0.2)
-		elif combo == 30:
+		elif combo % 30 == 0:
+			play_sound(CLASH)
+			play_sound(RPS_CLASH)
+			play_sound(CLASH_CHEER)
 			spawn_clash_popup("RPS CLASH!", Color.GOLDENROD)
 			var tween = create_tween()
 			tween.tween_property(background, "color", Color("7d3300"), 0.2)
@@ -317,6 +360,7 @@ func resolve_rps(player_type, enemy_type, position: Vector2 = Vector2(-1,-1)):
 		
 		var shake_power = clamp(0.5 + combo * 0.1, 0.5, 2.0)
 		shake_camera.add_trauma(shake_power)
+		
 		
 	else:
 		print("Player Loses!")
@@ -328,14 +372,16 @@ func _on_enemy_timer_timeout() -> void:
 	if chance <= 0.3:
 		var rand = randi() % 3
 		spawn_enemy_top(rand)
-		await get_tree().create_timer(0.3).timeout
+		await get_tree().create_timer(0.1).timeout
 		spawn_enemy_top(rand)
-		await get_tree().create_timer(0.3).timeout
+		await get_tree().create_timer(0.1).timeout
 		spawn_enemy_top(rand)
 	else:
 		spawn_enemy_top(-1)
 		
 func show_game_over():
+	play_sound(LOSE_COUNTER)
+	bgm_player.stop()
 	game_over_screen.visible = true
 	await get_tree().process_frame
 	get_tree().paused = true
@@ -348,7 +394,7 @@ func _on_retry_pressed() -> void:
 
 
 func _on_difficulty_timer_timeout() -> void:
-	final_enemy_speed += 20
+	final_enemy_speed += 30
 	enemy_spawn_rate -= 0.2
 	enemy_timer.wait_time = enemy_spawn_rate
 	initial_enemy_speed += 30
