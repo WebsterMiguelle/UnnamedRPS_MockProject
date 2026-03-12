@@ -241,6 +241,7 @@ texture = SubResource("AtlasTexture_jn2ok")
 
 [node name="Pause Screen" type="ColorRect" parent="CanvasLayer" unique_id=1065463818]
 process_mode = 2
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -355,6 +356,7 @@ ignore_texture_size = true
 stretch_mode = 1
 
 [node name="Game Over Screen2" type="ColorRect" parent="CanvasLayer" unique_id=418766939]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

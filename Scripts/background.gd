@@ -131,16 +131,6 @@ func slow_motion_effect(target:float,duration:float):
 	tween.tween_property(Engine, "time_scale", target, 0)
 	tween.tween_property(Engine, "time_scale", 1, duration)
 	
-func toggle_pause():
-	is_paused = !is_paused
-	get_tree().paused = is_paused
-	pause_screen.visible = is_paused
-	
-	if get_tree().paused:
-		pause_button.text = "Resume"
-	else:
-		pause_button.text = "Paused"
-		
 func _ready():
 	
 	pause_screen.visible = false
@@ -168,10 +158,6 @@ func _ready():
 	#comboLabel.add_theme_font_size_override("font_size", 20)
 	
 	
-func _input(event):
-	if event is InputEventKey and event.pressed and event.keycode == KEY_SPACE:
-		toggle_pause()
-		
 func update_score_label():
 	score_label.text = str(player_score)
 
