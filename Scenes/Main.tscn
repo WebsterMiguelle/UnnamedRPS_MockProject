@@ -7,7 +7,10 @@
 [ext_resource type="Script" uid="uid://bl5qa7n8mmpb6" path="res://Scenes/shake_camera.gd" id="5_ltlj5"]
 [ext_resource type="Shader" uid="uid://mdxx2xm26xss" path="res://Scenes/Gameplay_Background_Scroll.gdshader" id="6_jw32o"]
 [ext_resource type="Texture2D" uid="uid://bile8wypcdiqv" path="res://ASSETS/RPS_Tile_BG_clear.png" id="7_50glp"]
-[ext_resource type="AudioStream" uid="uid://di4q8ygtf555k" path="res://ASSETS/BGM_SFX/Let's Clash.wav" id="8_50glp"]
+[ext_resource type="AudioStream" uid="uid://ct8whm0pxally" path="res://ASSETS/BGM_SFX/Let's Clash (No Clash).wav" id="8_4kpch"]
+[ext_resource type="AudioStream" uid="uid://d1b26pyo6pp13" path="res://ASSETS/BGM_SFX/Let's Clash (Super Clash).wav" id="9_grg3l"]
+[ext_resource type="AudioStream" uid="uid://c860xohxto6k6" path="res://ASSETS/BGM_SFX/Let's Clash (Mega Clash).wav" id="10_frkhe"]
+[ext_resource type="AudioStream" uid="uid://b4t75rascjyku" path="res://ASSETS/BGM_SFX/Let's Clash (RPS CLash).wav" id="11_1p5hy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xgxeb"]
 atlas = ExtResource("3_4aqey")
@@ -102,6 +105,17 @@ color = Color(1, 0.6745098, 0, 1)
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_jw32o"]
 polyphony = 16
+
+[sub_resource type="AudioStreamSynchronized" id="AudioStreamSynchronized_h1m7h"]
+stream_count = 4
+stream_0/stream = ExtResource("8_4kpch")
+stream_0/volume = 0.0
+stream_1/stream = ExtResource("9_grg3l")
+stream_1/volume = -60.0
+stream_2/stream = ExtResource("10_frkhe")
+stream_2/volume = -60.0
+stream_3/stream = ExtResource("11_1p5hy")
+stream_3/volume = -60.0
 
 [node name="Main" type="Node2D" unique_id=76817665]
 process_mode = 3
@@ -338,8 +352,8 @@ stream = SubResource("AudioStreamPolyphonic_jw32o")
 autoplay = true
 
 [node name="BGM Player" type="AudioStreamPlayer2D" parent="." unique_id=660192274]
-stream = ExtResource("8_50glp")
-volume_db = -3.476
+stream = SubResource("AudioStreamSynchronized_h1m7h")
+volume_db = -1.759
 autoplay = true
 
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Scissors" to="." method="_on_scissors_pressed"]

@@ -9,6 +9,7 @@ extends Node2D
 @onready var dark_overlay = $CanvasLayer/DarkOverlay
 @onready var pause_screen = $"CanvasLayer/Pause Screen"
 
+@onready var difficulty_timer: Timer = $DifficultyTimer
 @onready var enemy_timer: Timer = $"Enemy Timer"
 @onready var shake_camera: Camera2D = $ShakeCamera
 @onready var clash_particles = preload("res://Scenes/clash_particles.tscn")
@@ -23,7 +24,6 @@ extends Node2D
 var playback: AudioStreamPlaybackPolyphonic
 const BUTTON:AudioStream = preload("uid://dbfmq2oucugf7")
 const CLASH = preload("uid://bx4sjsu5b86xu")
-const COMBO = preload("uid://cm6qjmtcwnrj6")
 const DRAW = preload("uid://7wchsd46l0mb")
 const LOSE_COUNTER = preload("uid://cjilfol4gvosx")
 const PAPER_COUNTER = preload("uid://djlyvcjvdvl7b")
@@ -33,9 +33,18 @@ const CLASH_CHEER = preload("uid://deyrr25vfblh7")
 const SUPER_CLASH = preload("uid://cnotsb71flbsn")
 const MEGA_CLASH = preload("uid://d24fw1joefwbj")
 const RPS_CLASH = preload("uid://dc7l11blghllo")
+const COMBO_1 = preload("uid://b80bmfn1uatew")
+const COMBO_2 = preload("uid://cpqd2sim8muhb")
+const COMBO_3 = preload("uid://bqax6j8r0udqy")
+const COMBO_4 = preload("uid://c44ij65op8jfa")
+const COMBO_5 = preload("uid://d3appgpdq4f8w")
+const COMBO_6 = preload("uid://cj28v687j38g8")
+const COMBO_7 = preload("uid://sb8p46n1qxl0")
+const COMBO_DOWN = preload("uid://bgup1ufpobo7w")
+
 
 @onready var bgm_player: AudioStreamPlayer2D = $"BGM Player"
-
+var synchronizer: AudioStreamSynchronized
 
 @export var player_speed := 300  
 @export var player_acceleration := 200
@@ -83,7 +92,7 @@ const PLAYER_LINE_Y = 400
 const ENEMY_LINE_Y = 100
 
 func get_hype_word():
-	var index = clamp(min(combo / 5, hype_words.size() - 1),0,6)
+	var index = clamp(min(combo / 10, hype_words.size() - 1),0,6)
 	return hype_words[index]
 	
 func get_draw_word():
@@ -96,20 +105,27 @@ func spawn_score_popup(text, position, color := Color.WHITE):
 	label.modulate = Color.YELLOW
 	label.position = position
 	
-	if combo < 5:
+	if combo < 10:
 		label.modulate = Color.LIGHT_BLUE
-	elif combo < 10:
-		label.modulate = Color.MEDIUM_ORCHID
-	elif combo < 15:
-		label.modulate = Color.PINK
+		play_sound(COMBO_1)
 	elif combo < 20:
-		label.modulate = Color.INDIAN_RED
-	elif combo < 25:
-		label.modulate = Color.ORANGE_RED
+		label.modulate = Color.MEDIUM_ORCHID
+		play_sound(COMBO_2)
 	elif combo < 30:
+		label.modulate = Color.PINK
+		play_sound(COMBO_3)
+	elif combo < 40:
+		label.modulate = Color.INDIAN_RED
+		play_sound(COMBO_4)
+	elif combo < 50:
+		label.modulate = Color.ORANGE_RED
+		play_sound(COMBO_5)
+	elif combo < 60:
 		label.modulate = Color.ORANGE
+		play_sound(COMBO_6)
 	else:
 		label.modulate = Color.GOLD
+		play_sound(COMBO_7)
 	add_child(label)
 
 	var tween = create_tween()
@@ -150,6 +166,10 @@ func _ready():
 	background.color = Color.BLACK
 	CLASH_particles.emitting = false
 	playback = sfx_player.get_stream_playback()
+	synchronizer = bgm_player.stream
+	synchronizer.set_sync_stream_volume(1, -60)
+	synchronizer.set_sync_stream_volume(2, -60)
+	synchronizer.set_sync_stream_volume(3, -60)
 
 func play_sound(stream: AudioStream):
 	if !sfx_player.playing:
@@ -162,6 +182,8 @@ func _input(event):
 	if event is InputEventKey and event.pressed and event.keycode == KEY_SPACE:
 		get_tree().paused = !get_tree().paused
 		pause_screen.visible = get_tree().paused
+		enemy_timer.paused = !enemy_timer.paused
+		difficulty_timer.paused = !difficulty_timer.paused
 		print("Paused" if get_tree().paused else "Resumed")
 
 func update_score_label():
@@ -265,7 +287,7 @@ func check_clash(player_shape):
 			enemy.is_clashed = true
 			player_shape.is_clashed = true
 			resolve_rps(player_shape.type_name, enemy.type_name, player_shape.global_position)
-			var shake_power = clamp(0.5 + combo * 0.1, 0.2, 0.8)
+			var shake_power = clamp(0.5 + combo * 0.1, 0.2, 0.6)
 			shake_camera.add_trauma(shake_power)
 			var tween = create_tween()
 			tween.tween_property(Engine, "time_scale", 0.1, 0)
@@ -293,9 +315,15 @@ func check_clash(player_shape):
 @warning_ignore("shadowed_variable_base_class")
 func resolve_rps(player_type, enemy_type, position: Vector2 = Vector2(-1,-1)):
 	if player_type == enemy_type:
+		if combo >= 30: 
+			play_sound(COMBO_DOWN)
+			slow_motion_effect(0.1,2)
 		print("Draw!")
 		combo = 0
 		play_sound(DRAW)
+		synchronizer.set_sync_stream_volume(1, -60)
+		synchronizer.set_sync_stream_volume(2, -60)
+		synchronizer.set_sync_stream_volume(3, -60)
 		var tween = create_tween()
 		tween.tween_property(background, "color", Color.BLACK, 0.2)
 		CLASH_particles.emitting = false
@@ -335,21 +363,42 @@ func resolve_rps(player_type, enemy_type, position: Vector2 = Vector2(-1,-1)):
 		if(player_type == "Circle"): play_sound(ROCK_COUNTER)
 		
 		if combo > 2:
-			play_sound(COMBO)
 			spawn_score_popup(popup_text, position)
 		if combo == 10:
 			play_sound(CLASH)
 			play_sound(SUPER_CLASH)
+			var bgm_tween = create_tween()
+			bgm_tween.tween_method(
+				func(volume): synchronizer.set_sync_stream_volume(1, 0),
+				-60.0,
+				0.0,
+				1.0
+			)
 			spawn_clash_popup("SUPER CLASH!",Color.SKY_BLUE)
 			var tween = create_tween()
 			tween.tween_property(background, "color", Color("221a4a"), 0.2)
 		elif combo == 20:
 			play_sound(CLASH)
 			play_sound(MEGA_CLASH)
+			var bgm_tween = create_tween()
+			bgm_tween.tween_method(
+				func(volume): synchronizer.set_sync_stream_volume(2, 0),
+				-60.0,
+				0.0,
+				1.0
+			)
+			
 			spawn_clash_popup("MEGA CLASH!", Color.HOT_PINK)
 			var tween = create_tween()
 			tween.tween_property(background, "color", Color("6a2331"), 0.2)
 		elif combo % 30 == 0:
+			var bgm_tween = create_tween()
+			bgm_tween.tween_method(
+				func(volume): synchronizer.set_sync_stream_volume(3, 0),
+				-60.0,
+				0.0,
+				1.0
+			)
 			play_sound(CLASH)
 			play_sound(RPS_CLASH)
 			play_sound(CLASH_CHEER)
