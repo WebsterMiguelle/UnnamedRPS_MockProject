@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://c0sti77qwkyg6" path="res://ASSETS/Early GameBoy.ttf" id="2_jw32o"]
 [ext_resource type="Texture2D" uid="uid://4outa15memkd" path="res://ASSETS/Buttons.png" id="3_4aqey"]
 [ext_resource type="Texture2D" uid="uid://bpqid0b3j45nr" path="res://ASSETS/Icons.png" id="4_xgxeb"]
-[ext_resource type="Script" uid="uid://bl5qa7n8mmpb6" path="res://Scripts/shake_camera.gd" id="5_ltlj5"]
+[ext_resource type="Script" uid="uid://bl5qa7n8mmpb6" path="res://Scenes/shake_camera.gd" id="5_ltlj5"]
 [ext_resource type="Shader" uid="uid://mdxx2xm26xss" path="res://Scenes/Gameplay_Background_Scroll.gdshader" id="6_jw32o"]
 [ext_resource type="Texture2D" uid="uid://bile8wypcdiqv" path="res://ASSETS/RPS_Tile_BG_clear.png" id="7_50glp"]
 
@@ -55,6 +55,8 @@ region = Rect2(0, 16, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_jn2ok"]
 atlas = ExtResource("4_xgxeb")
 region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="FontVariation" id="FontVariation_jw32o"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vy5pj"]
 shader = ExtResource("6_jw32o")
@@ -112,6 +114,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Time Freenzy" type="Label" parent="CanvasLayer" unique_id=74249725]
@@ -189,7 +192,23 @@ position = Vector2(29.999998, 30.999998)
 scale = Vector2(2.75, 2.75)
 texture = SubResource("AtlasTexture_jn2ok")
 
-[node name="Game Over Screen" type="ColorRect" parent="CanvasLayer" unique_id=157600104]
+[node name="Paused Button" type="Button" parent="CanvasLayer" unique_id=1180486952]
+process_mode = 2
+custom_minimum_size = Vector2(20, 20)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -41.0
+offset_top = 15.0
+offset_right = 29.0
+offset_bottom = 46.0
+grow_horizontal = 2
+scale = Vector2(1, 1.2399997)
+text = "PAUSED"
+
+[node name="Game Over Screen" type="Control" parent="CanvasLayer" unique_id=1507946595]
+visibility_layer = 1007
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -199,7 +218,6 @@ offset_bottom = -601.6825
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(28.971739, 16.270847)
-color = Color(0, 0, 0, 0.69411767)
 
 [node name="Game Over" type="Label" parent="CanvasLayer/Game Over Screen" unique_id=827447277]
 layout_mode = 1
@@ -208,10 +226,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -10.838151
-offset_top = -6.7912903
-offset_right = 113.32314
-offset_bottom = 7.65691
+offset_left = -10.907182
+offset_top = -6.5761786
+offset_right = 113.254135
+offset_bottom = 7.872032
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.18347766, 0.30925906)
@@ -219,6 +237,7 @@ theme_override_fonts/font = ExtResource("2_jw32o")
 theme_override_font_sizes/font_size = 8
 text = "Game Over"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Retry" type="Button" parent="CanvasLayer/Game Over Screen" unique_id=1451430581]
 layout_mode = 0
@@ -234,12 +253,13 @@ text = "RETRY"
 icon_alignment = 1
 
 [node name="Pause Screen" type="ColorRect" parent="CanvasLayer" unique_id=1065463818]
-visible = false
+process_mode = 2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 0.5019608)
 
 [node name="Paused" type="Label" parent="CanvasLayer/Pause Screen" unique_id=2093402619]
@@ -264,6 +284,46 @@ wait_time = 3.0
 autostart = true
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=1081792358]
+
+[node name="ComboLabel" type="Label" parent="CanvasLayer2" unique_id=337595047]
+visibility_layer = 1023
+custom_minimum_size = Vector2(60, 20)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -108.0
+offset_top = -202.0
+offset_right = -8.0
+offset_bottom = -177.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+theme_override_fonts/font = SubResource("FontVariation_jw32o")
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimeLabel" type="Label" parent="CanvasLayer2" unique_id=349852977]
+visibility_layer = 1023
+clip_contents = true
+custom_minimum_size = Vector2(60, 20)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.0
+offset_top = -154.0
+offset_right = 37.0
+offset_bottom = -129.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.9, 0.9)
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Score" type="Label" parent="CanvasLayer2" unique_id=1307053088]
 custom_minimum_size = Vector2(60, 20)
@@ -327,13 +387,14 @@ texture = SubResource("GradientTexture2D_jw32o")
 position = Vector2(243.565, 684.895)
 rotation = 7.819075
 amount = 30
-lifetime = 3.8299999999999996
+lifetime = 3.83
 randomness = 0.57
 process_material = SubResource("ParticleProcessMaterial_vy5pj")
 
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Scissors" to="." method="_on_scissors_pressed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Paper" to="." method="_on_paper_pressed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Rock" to="." method="_on_rock_pressed"]
+[connection signal="pressed" from="CanvasLayer/Paused Button" to="." method="_on_paused_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Game Over Screen/Retry" to="." method="_on_retry_pressed"]
 [connection signal="timeout" from="Enemy Timer" to="." method="_on_enemy_timer_timeout"]
 [connection signal="timeout" from="DifficultyTimer" to="." method="_on_difficulty_timer_timeout"]
