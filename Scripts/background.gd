@@ -8,7 +8,6 @@ const MAIN_MENU = preload("uid://bv1etpv8opnuj")
 	
 @onready var game_over_screen = get_node("CanvasLayer/Game Over Screen2")
 @onready var score_label = $CanvasLayer2/Score
-@onready var dark_overlay = $CanvasLayer/DarkOverlay
 @onready var pause_screen = $"CanvasLayer/Pause Screen"
 
 @onready var timeLabel = $"CanvasLayer2/TimeLabel"

@@ -2,7 +2,6 @@ extends Control
 
 @onready var start_button: TextureButton = $start_button
 @onready var start_game = preload("res://Scenes/Main.tscn")
-@onready var button_sfx: AudioStreamPlayer2D = $Button_SFX
 @onready var transition_sfx: AudioStreamPlayer2D = $Transition_SFX
 @onready var bgm_player: AudioStreamPlayer2D = $BGM_Player
 
