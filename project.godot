@@ -8,6 +8,10 @@
 
 config_version=5
 
+[accessibility]
+
+general/updates_per_second=30
+
 [application]
 
 config/name="RPS_Clash"
@@ -20,8 +24,8 @@ run/canvas_textures/default_texture_filter=1
 
 window/size/viewport_width=480
 window/size/viewport_height=640
+window/size/resizable=false
 window/stretch/mode="viewport"
-window/stretch/aspect="expand"
 window/handheld/orientation=1
 
 [gui]

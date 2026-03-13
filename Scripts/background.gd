@@ -308,7 +308,7 @@ func check_clash(player_shape):
 			enemy.is_clashed = true
 			player_shape.is_clashed = true
 			resolve_rps(player_shape.type_name, enemy.type_name, player_shape.global_position)
-			var shake_power = clamp(score_multiplier * 0.1, 0.2, 0.6)
+			var shake_power = clamp(score_multiplier * 0.1, 0.1, 0.3)
 			shake_camera.add_trauma(shake_power)
 			var tween = create_tween()
 			tween.tween_property(Engine, "time_scale", 0.1, 0)
